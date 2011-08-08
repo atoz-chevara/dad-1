@@ -49,7 +49,7 @@ function processDir(basePath, watch) {
         } else {
             for (var i = 0; i < fileList.length; i++) {
                 var current = path.join(basePath, fileList[i]);
-                if (current[0] == '.' ||
+                if (current[0] === '.' ||
                     supported_exts.indexOf(path.extname(current)) < 0) {
                     continue;
                 }

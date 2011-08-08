@@ -22,6 +22,10 @@ var path = require('path'),
     cleancss = require('clean-css');
 
 
+var supported_exts = [
+    '.sass'
+];
+
 function compileAndMinify(file) {
     var ext = path.extname(file);
     if (ext === '.sass') {
@@ -45,10 +49,10 @@ function processDir(basePath, watch) {
         } else {
             for (var i = 0; i < fileList.length; i++) {
                 var current = path.join(basePath, fileList[i]);
-                if (current[0] == '.') {
+                if (current[0] == '.' ||
+                    supported_exts.indexOf(path.extname(current)) < 0) {
                     continue;
                 }
-
                 if (watch) {
                     fs.watchFile(current, function (curr, prev) {
                         compileAndMinify(current);

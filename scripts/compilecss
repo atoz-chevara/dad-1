@@ -22,31 +22,39 @@ var path = require('path'),
     cleancss = require('clean-css');
 
 
-function main() {
-    var cwd = path.dirname(__filename);
-    var files = path.join(cwd, '..', 'static', 'css');
+function compileAndMinify(file) {
+    var ext = path.extname(file);
+    if (ext === '.sass') {
+        fs.readFile(file, function (err, data) {
+            if (!err) {
+                var compiled = sass.render(String(data));
+                var minimized = cleancss.process(compiled);
+                fs.writeFile(file.replace(ext, '.css'), minimized);
+            } else {
+                console.log(err);
+            }
+        });
+    }
+}
 
-    fs.readdir(files, function (err, fileList) {
+
+function processDir(basePath, watch) {
+    fs.readdir(basePath, function (err, fileList) {
         if (err) {
             console.log(err);
         } else {
             for (var i = 0; i < fileList.length; i++) {
-                var current = path.join(files, fileList[i]);
+                var current = path.join(basePath, fileList[i]);
                 if (current[0] == '.') {
                     continue;
                 }
 
-                var ext = path.extname(current);
-                if (ext === '.sass') {
-                    fs.readFile(current, function (err, data) {
-                        if (!err) {
-                            var compiled = sass.render(String(data));
-                            var minimized = cleancss.process(compiled);
-                            fs.writeFile(current.replace(ext, '.css'), minimized);
-                        } else {
-                            console.log(err);
-                        }
+                if (watch) {
+                    fs.watchFile(current, function (curr, prev) {
+                        compileAndMinify(current);
                     });
+                } else {
+                    compileAndMinify(current);
                 }
             }
         }
@@ -55,5 +63,43 @@ function main() {
 
 
 if (module == require.main) {
-    main();
+    var defaultBasePath = path.dirname(__filename);
+    var defaultDirs = [
+        path.join(defaultBasePath, '..', 'static', 'css'),
+        path.join(defaultBasePath, '..', 'templates')
+    ];
+
+    var defaults = {
+        watch: false,
+        dirs: defaultDirs
+    };
+
+    process.argv.forEach(function (val, index, array) {
+        if (index > 1) {
+            var b = val.split('=');
+            var arg = {
+                name: b[0].replace(/\-*/, ''),
+                value: b.length > 1 ? b[1] : null
+            };
+
+            switch (arg.name) {
+            case 'watch':
+            case 'w':
+                defaults.watch = true;
+                break;
+
+            case 'dirs':
+            case 'd':
+                defaults.dirs = [];
+                arg.value.split(',').forEach(function (data) {
+                    defaults.dirs.push(path.resolve(data));
+                });
+                break;
+            }
+        }
+    });
+
+    defaults.dirs.forEach(function (data) {
+        processDir(data, defaults.watch);
+    });
 }

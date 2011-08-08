@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/send.css') }}">
+    <title>Thank you Debian</title>
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+        <h1>Thank you Debian!</h1>
+      </header>
+      <div id="content">
+        <h2>Post your picture</h2>
+        <form id="thanks" method="post" action="{{ url_for('sendimage') }}">
+          <div id="column1">
+            <h3>Your identify</h3>
+            <ol>
+              <li>
+                <label for="name">Your name:</label>
+                <input type="text" id="name" name="name">
+              </li>
+              <li>
+                <label for="email">Your email address:</label>
+                <input type="text" id="email" name="email">
+                <p class="helpText">
+                  Only used when sending as email. Never
+                  shown.
+                </p>
+              </li>
+              <li>
+                <label for="url">URL:</label>
+                <input type="text" id="url" name="url">
+                <p class="helpText">
+                  Optional. A URL to be linked to your name.
+                </p>
+              </li>
+              <li>
+                <label for="avatar">Avatar:</label>
+                <input type="text" id="avatar" name="avatar">
+                <p class="helpText">
+                  Optional. A URL of a hackergotchi image.
+                </p>
+              </li>
+            </ol>
+          </div>
+
+          <div id="column2">
+            <h3>Share a happy moment with other Debian lovers</h3>
+            <ol>
+              <li>
+                <label for="image">An image URL:</label>
+                <input type="text" id="image" name="image">
+                <p class="helpText">
+                  Please, fill with a direct link to an image, not to an
+                  HTML page :)
+                </p>
+              </li>
+            </ol>
+            <h3>Where were you in that pic?</h3>
+            <p class="helpText">
+              We will show your picture in a map, so we need to know
+              where it was taken. If your image has the exif metadata
+              fields, you don't need to worry about that.
+            </p>
+            <p class="helpText">
+              If you <strong>don't</strong> want to share your location,
+              just fill out the fields bellow with zeros.
+            </p>
+            <ol>
+              <li>
+                <label for="latitude">Latitude:</label>
+                <input type="text" id="latitude" name="latitude">
+              </li>
+              <li>
+                <label for="longitude">Longitude:</label>
+                <input type="text" id="longitude" name="longitude">
+              </li>
+            </ol>
+          </div>
+        </form>
+      </div>
+    </div>
+    <footer>
+    </footer>
+  </body>
+</html>

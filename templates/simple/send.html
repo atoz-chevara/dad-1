@@ -12,106 +12,98 @@
       </header>
       <div id="content">
         <h2>Say thank you </h2>
-        <p class="helpText">
-          Choose the person or group that you'd like to particularly
-          thank, pick a random developer, or just thank the whole
-          community through this webpage.
-        </p>
-
-        <p class="helpText">
-          Feel free to include anecdotes or usecases that make you like
-          Debian.
-        </p>
 
         <form id="thanks" method="post" action="{{ url_for('sendimage') }}">
+          <h3>Message</h3>
+          <fieldset>
+            <p class="helpText">
+              If you want to send a direct thank you for a package
+              maintainer by citing the package name prefixed by a colon
+              (:) symbol, like this <strong>:freecraft</strong>. You can
+              also thank a team by picking one in the select box bellow
+              the message area.
+            </p>
 
-          <div id="thankTarget">
-            <ul>
-              <li>
-                <h3>By package</h3>
-                <input type="text" name="package">
-              </li>
-              <li>
-                <h3>By team</h3>
-                <select name="team">
-                  <option></option>
-                </select>
-              </li>
-          </div>
+            <p class="helpText">
+              Feel free to include anecdotes or usecases that make you
+              like Debian.
+            </p>
+          </fieldset>
 
-          <div id="message">
-            <h3>Message</h3>
+          <fieldset>
             <textarea name="message"></textarea>
-          </div>
 
-          <div id="column1">
-            <h3>Your identify</h3>
-            <ol>
-              <li>
-                <label for="name">Your name:</label>
-                <input type="text" id="name" name="name">
-              </li>
-              <li>
-                <label for="email">Your email address:</label>
-                <p class="helpText">
-                  Only used when sending as email. Never
-                  shown.
-                </p>
-                <input type="text" id="email" name="email">
-              </li>
-              <li>
-                <label for="url">URL:</label>
-                <p class="helpText">
-                  Optional. A URL to be linked to your name.
-                </p>
-                <input type="text" id="url" name="url">
-              </li>
-              <li>
-                <label for="avatar">Avatar:</label>
-                <p class="helpText">
-                  Optional. A URL of a hackergotchi image.
-                </p>
-                <input type="text" id="avatar" name="avatar">
-              </li>
-            </ol>
-          </div>
+            <div id="thankTarget">
+              <p class="helpText">Thank a specific team</p>
+              <select name="team">
+                <option>Debian Community</option>
+              </select>
+            </div>
 
-          <div id="column2">
-            <h3>Share a happy moment with other Debian lovers</h3>
+            <img id="gravatar" src="http://www.gravatar.com/avatar/?s=48&d=mm">
             <ol>
-              <li>
-                <label for="image">Image URL:</label>
-                <p class="helpText">
-                  Please, fill with a direct link to an image, not to an
-                  HTML page :)
-                </p>
-                <input type="text" id="image" name="image">
-              </li>
+              <li><input type="text" id="email" name="email" placeholder="Email (Required)"></li>
+              <li><input type="text" id="name" name="name" placeholder="Name (Required)"></li>
+              <li><input type="text" id="url" name="url" placeholder="Website"></li>
+              <li><input type="text" id="avatar" name="avatar" placeholder="URL of a Hackergotchi"></li>
             </ol>
-            <h3>Where were you in that pic?</h3>
+          </fieldset>
+
+          <h3>Share a picture of your party with other Debian lovers</h3>
+          <fieldset>
+            <input type="text" id="image" name="image" placeholder="Image URL">
             <p class="helpText">
-              We will show your picture in a map, so we need to know
-              where it was taken. If your image has the exif metadata
-              fields, you don't need to worry about that.
+              Please, fill with a direct link to an image, not to an
+              HTML page :)
             </p>
-            <p class="helpText">
-              If you <strong>don't</strong> want to share your location,
-              just fill out the fields bellow with zeros.
-            </p>
-            <ol>
-              <li>
-                <label for="latitude">Latitude:</label>
-                <input type="text" id="latitude" name="latitude">
-              </li>
-              <li>
-                <label for="longitude">Longitude:</label>
-                <input type="text" id="longitude" name="longitude">
-              </li>
-            </ol>
-          </div>
+          </fieldset>
 
           <div id="sendButton"><input type="submit" value="Say thanks"></div>
         </form>
+
+        <ul id="sidebar">
+          <li>
+            <h3>#thxdebian on identi.ca</h3>
+            <ul>
+              <li>
+                <a href="#">@someone</a> Cras feugiat egestas
+                blandit. Proin gravida, eros id tempor fermentum, est
+                justo commodo turpis, in accumsan erat erat nec
+                magna <a href="#">#thxdebian</a>
+              </li>
+
+              <li>
+                <a href="#">@anotherone</a> Aenean odio neque, lacinia
+                rhoncus venenatis quis, tincidunt a velit. Proin et
+                felis vitae velit lacinia <a href="#">#thxdebian</a>
+                egestas et in nunc.
+              </li>
+
+              <li>
+                <a href="#">@lincoln</a> <a href="#">#thxdebian</a>
+                Vestibulum ante ipsum primis in faucibus orci luctus et
+                ultrices posuere cubilia Curae
+              </li>
+            </ul>
+          </li>
+
+          <li class="gallery">
+            <h3>Debian lovers</h3>
+            <ul>
+              <li>
+                <img src="http://www.gravatar.com/avatar/?s=120&d=mm">
+                <ul>
+                  <li><strong>Lincoln de Sousa</strong></li>
+                  <li class="from">From <a href="#">Brazil</a></li>
+                  <li class="msg">
+                    This is a small part of the whole message sent by
+                    lincoln to the Thank you Debian! site
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
     <footer>

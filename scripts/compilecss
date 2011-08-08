@@ -1,0 +1,59 @@
+#!/usr/bin/node
+/* -*- Mode: js2 -*-
+ * Copyright (C) 2011  Lincoln de Sousa <lincoln@comum.org>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+var path = require('path'),
+    fs = require('fs'),
+    sass = require('sass'),
+    cleancss = require('clean-css');
+
+
+function main() {
+    var cwd = path.dirname(__filename);
+    var files = path.join(cwd, '..', 'static', 'css');
+
+    fs.readdir(files, function (err, fileList) {
+        if (err) {
+            console.log(err);
+        } else {
+            for (var i = 0; i < fileList.length; i++) {
+                var current = path.join(files, fileList[i]);
+                if (current[0] == '.') {
+                    continue;
+                }
+
+                var ext = path.extname(current);
+                if (ext === '.sass') {
+                    fs.readFile(current, function (err, data) {
+                        if (!err) {
+                            var compiled = sass.render(String(data));
+                            var minimized = cleancss.process(compiled);
+                            fs.writeFile(current.replace(ext, '.css'), minimized);
+                        } else {
+                            console.log(err);
+                        }
+                    });
+                }
+            }
+        }
+    });
+}
+
+
+if (module == require.main) {
+    main();
+}

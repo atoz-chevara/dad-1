@@ -38,3 +38,4 @@ class Image(Document):
     date = DateTimeField(default=datetime.now)
     geolocation = GeoPointField()
     image = FileField(required=True)
+    owner = ReferenceField(User)

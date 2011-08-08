@@ -11,8 +11,39 @@
         <h1>Thank you Debian!</h1>
       </header>
       <div id="content">
-        <h2>Post your picture</h2>
+        <h2>Say thank you </h2>
+        <p class="helpText">
+          Choose the person or group that you'd like to particularly
+          thank, pick a random developer, or just thank the whole
+          community through this webpage.
+        </p>
+
+        <p class="helpText">
+          Feel free to include anecdotes or usecases that make you like
+          Debian.
+        </p>
+
         <form id="thanks" method="post" action="{{ url_for('sendimage') }}">
+
+          <div id="thankTarget">
+            <ul>
+              <li>
+                <h3>By package</h3>
+                <input type="text" name="package">
+              </li>
+              <li>
+                <h3>By team</h3>
+                <select name="team">
+                  <option></option>
+                </select>
+              </li>
+          </div>
+
+          <div id="message">
+            <h3>Message</h3>
+            <textarea name="message"></textarea>
+          </div>
+
           <div id="column1">
             <h3>Your identify</h3>
             <ol>
@@ -78,6 +109,8 @@
               </li>
             </ol>
           </div>
+
+          <div id="sendButton"><input type="submit" value="Say thanks"></div>
         </form>
       </div>
     </div>

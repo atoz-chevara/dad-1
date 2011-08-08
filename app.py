@@ -24,7 +24,7 @@ def index():
 
 
 @app.route('/send')
-def sendimage():
+def send():
     return render_template('simple/send.html')
 
 

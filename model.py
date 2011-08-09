@@ -26,8 +26,9 @@ from mongoengine import connect, Document, StringField, EmailField, \
     ListField, DateTimeField, GeoPointField, FileField
 from flask import escape, Markup
 
+import conf
 
-connect('dad')
+connect(conf.DATABASE_NAME)
 
 
 PKG_URL_PATTERN = u'<a href="http://packages.debian.org/%(n)s">:%(n)s</a>'

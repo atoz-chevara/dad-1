@@ -18,34 +18,67 @@
       </div>
     </header>
 
-    <div id="slideshow" class="w960">
-      <ul>
-        <li><img src="{{ url_for('static', filename='imgs/fake/07252010358.jpg') }}"></li>
-        <li><img src="{{ url_for('static', filename='imgs/fake/100_0595.JPG') }}"></li>
-        <li><img src="{{ url_for('static', filename='imgs/fake/10152010536.jpg') }}"></li>
-        <li><img src="{{ url_for('static', filename='imgs/fake/10212010561.jpg') }}"></li>
-        <li><img src="{{ url_for('static', filename='imgs/fake/11072010753.jpg') }}"></li>
-        <li><img src="{{ url_for('static', filename='imgs/fake/20110415_003.jpg') }}"></li>
-        <li><img src="{{ url_for('static', filename='imgs/fake/20110513_015.jpg') }}"></li>
-        <li><img src="{{ url_for('static', filename='imgs/fake/20110524_008.jpg') }}"></li>
-      </ul>
-    </div>
-
     <div id="content" class="w960">
+      <div id="map">
+        <img src="{{ url_for('static', filename='imgs/map.png') }}">
+      </div>
+
       <ul id="stream">
-        <li>
-          <img src="" alt="Person Name" class="avatar">
+        <li class="haveImage">
+          <img src="http://www.gravatar.com/avatar/?s=32&d=mm" alt="Person Name" class="avatar">
           <ul>
-            <li class="name">Lincoln de Sousa</li>
-            <li class="msg">
-              Aenean odio neque, lacinia rhoncus venenatis quis,
-              tincidunt a velit. Proin et felis vitae velit lacinia
-              #thxdebian egestas et in nunc
+            <li class="img">
+              <img class="rimg" src="{{ url_for('static', filename='imgs/fake/100_0595.JPG') }}">
             </li>
-            <li class="img"><img src=""></li>
+            <li class="name"><a href="#">Michael Köhnlein</a></li>
+            <li class="msg">
+              <p>Using debian since 1998, keep up the good work!</p>
+              <p>But seriously, the iceweasel thing was just plain silly.</p>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <img src="http://www.gravatar.com/avatar/?s=32&d=mm" alt="Person Name" class="avatar">
+          <ul>
+            <li class="name"><a href="#">Stefan Endrullis</a></li>
+            <li class="msg">
+              Well, I could thank a lot of people here for developing
+              pieces of the great software that I use daily. I know it
+              would be a VERY LONG list. But even then I'm sure I would
+              still miss thousands of developers working in the
+              background, submitting patches, writing bug reports,
+              etc. Therefore let's cut it short: Thank you all for your
+              work on open source software and especially the work on
+              Debian.
+            </li>
+          </ul>
+        </li>
+        <li class="haveImage">
+          <img src="http://www.gravatar.com/avatar/?s=32&d=mm" alt="Person Name" class="avatar">
+          <ul>
+            <li class="img">
+              <img class="rimg" src="{{ url_for('static', filename='imgs/fake/10212010561.jpg') }}">
+            </li>
+            <li class="name"><a href="#">Anonymous</a></li>
+            <li class="msg">
+              To all of you!!
+            </li>
           </ul>
         </li>
       </ul>
+
+      <div id="slideshow" class="w960">
+        <ul>
+          <li><img src="{{ url_for('static', filename='imgs/fake/07252010358.jpg') }}"></li>
+          <li><img src="{{ url_for('static', filename='imgs/fake/100_0595.JPG') }}"></li>
+          <li><img src="{{ url_for('static', filename='imgs/fake/10152010536.jpg') }}"></li>
+          <li><img src="{{ url_for('static', filename='imgs/fake/10212010561.jpg') }}"></li>
+          <li><img src="{{ url_for('static', filename='imgs/fake/11072010753.jpg') }}"></li>
+          <li><img src="{{ url_for('static', filename='imgs/fake/20110415_003.jpg') }}"></li>
+          <li><img src="{{ url_for('static', filename='imgs/fake/20110513_015.jpg') }}"></li>
+          <li><img src="{{ url_for('static', filename='imgs/fake/20110524_008.jpg') }}"></li>
+        </ul>
+      </div>
 
       <form id="thanks" method="post" action="{{ url_for('index') }}">
         <h3>Your Message</h3>
@@ -76,7 +109,7 @@
 
           <img id="gravatar" src="http://www.gravatar.com/avatar/?s=48&d=mm">
           <ol>
-            <li><input type="text" id="email" name="email" placeholder="Email (Required)"></li>
+            <li><input type="text" id="email" name="email" placeholder="Email"></li>
             <li><input type="text" id="name" name="name" placeholder="Name (Required)"></li>
             <li><input type="text" id="url" name="url" placeholder="Website"></li>
             <li><input type="text" id="avatar" name="avatar" placeholder="URL of an avatar image"></li>
@@ -125,7 +158,7 @@
           <h3>Debian lovers</h3>
           <ul>
             <li>
-              <img src="http://www.gravatar.com/avatar/?s=120&d=mm">
+              <img class="rimg" src="http://www.gravatar.com/avatar/?s=120&d=mm">
               <ul>
                 <li><strong>Lincoln de Sousa</strong></li>
                 <li class="from">From <a href="#">Brazil</a></li>
@@ -141,6 +174,9 @@
     </div>
 
     <footer>
+      <div class="w960">
+        oi
+      </div>
     </footer>
   </body>
 </html>

@@ -12,6 +12,20 @@
 body
   :font normal 10pt sans-serif
 
+h3
+  :color #c70036
+
+hr
+  :border dotted 1px #ccc
+  :margin 20px 0
+
+a, a:visited
+  :color red
+  :text-decoration none
+
+a:hover
+  :text-decoration underline
+
 .w960
   :width 960px
   :margin 0 auto
@@ -28,6 +42,11 @@ header
       :display block
       :text-decoration none
       :color #fff
+    a:visited
+      :color #fff
+    a:hover
+      :color #fff
+      :text-decoration none
   .menu
     :float right
     :padding 35px 0 0 0
@@ -40,5 +59,9 @@ header
     a:hover
       :text-decoration underline
 
-h3
-  :color #c70036
+footer
+  :clear both
+  :height 60px
+  :padding 10px
+  :background gray
+  :margin-top 60px

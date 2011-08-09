@@ -37,31 +37,99 @@
             <li class="img"><img src=""></li>
           </ul>
         </li>
+      </ul>
 
+      <form id="thanks" method="post" action="{{ url_for('index') }}">
+        <h3>Your Message</h3>
+        <fieldset>
+          <p class="helpText">
+            If you want to send a direct thank you for a package
+            maintainer, just type the package name prefixed by a colon
+            (:) symbol, like this <strong>:freecraft</strong>. You can
+            also thank a team by picking one in the select box bellow
+            the message area.
+          </p>
+
+          <p class="helpText">
+            Feel free to include anecdotes or usecases that make you
+            like Debian.
+          </p>
+        </fieldset>
+
+        <fieldset>
+          <textarea name="message"></textarea>
+
+          <div id="thankTarget">
+            <p class="helpText">Thank a specific team</p>
+            <select name="team">
+              <option>Debian Community</option>
+            </select>
+          </div>
+
+          <img id="gravatar" src="http://www.gravatar.com/avatar/?s=48&d=mm">
+          <ol>
+            <li><input type="text" id="email" name="email" placeholder="Email (Required)"></li>
+            <li><input type="text" id="name" name="name" placeholder="Name (Required)"></li>
+            <li><input type="text" id="url" name="url" placeholder="Website"></li>
+            <li><input type="text" id="avatar" name="avatar" placeholder="URL of an avatar image"></li>
+          </ol>
+        </fieldset>
+
+        <h3>Share a picture of your party with other Debian lovers</h3>
+        <fieldset>
+          <input type="text" id="image" name="image" placeholder="Image URL">
+          <p class="helpText">
+            Please, fill with a direct link to an image, not to an
+            HTML page :)
+          </p>
+        </fieldset>
+
+        <div id="sendButton"><input type="submit" value="Say thanks"></div>
+      </form>
+
+      <ul id="sidebar">
         <li>
-          <img src="" alt="Person Name" class="avatar">
+          <h3>#thxdebian on identi.ca</h3>
           <ul>
-            <li class="name">Lincoln de Sousa</li>
-            <li class="msg">
-              <p>
-                Vestibulum ante ipsum primis in faucibus orci luctus
-                et ultrices posuere cubilia Curae; Etiam eu ipsum
-                vitae tortor viverra congue. Sed sed.
-              </p>
-
-              <p>
-                Aenean odio neque, lacinia rhoncus venenatis quis,
-                tincidunt a velit. Proin et felis vitae velit lacinia
-                #thxdebian egestas et in nunc
-              </p>
+            <li>
+              <a href="#">@someone</a> Cras feugiat egestas
+              blandit. Proin gravida, eros id tempor fermentum, est
+              justo commodo turpis, in accumsan erat erat nec
+              magna <a href="#">#thxdebian</a>
             </li>
-            <li class="img"><img src=""></li>
+
+            <li>
+              <a href="#">@anotherone</a> Aenean odio neque, lacinia
+              rhoncus venenatis quis, tincidunt a velit. Proin et
+              felis vitae velit lacinia <a href="#">#thxdebian</a>
+              egestas et in nunc.
+            </li>
+
+            <li>
+              <a href="#">@lincoln</a> <a href="#">#thxdebian</a>
+              Vestibulum ante ipsum primis in faucibus orci luctus et
+              ultrices posuere cubilia Curae
+            </li>
+          </ul>
+        </li>
+
+        <li class="gallery">
+          <h3>Debian lovers</h3>
+          <ul>
+            <li>
+              <img src="http://www.gravatar.com/avatar/?s=120&d=mm">
+              <ul>
+                <li><strong>Lincoln de Sousa</strong></li>
+                <li class="from">From <a href="#">Brazil</a></li>
+                <li class="msg">
+                  This is a small part of the whole message sent by
+                  lincoln to the Thank you Debian! site
+                </li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
-
-      <div id="column1"><h2>Post your picture</h2></div>
-      <div id="column2"><h2>Debian days around the globe</h2></div>
     </div>
 
     <footer>

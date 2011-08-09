@@ -24,14 +24,15 @@ from datetime import datetime
 from pyexiv2 import ImageMetadata
 from mongoengine import connect, Document, StringField, EmailField, \
     ListField, DateTimeField, GeoPointField, FileField
-from flask import escape
+from flask import escape, Markup
+
 
 connect('dad')
 
 
 PKG_URL_PATTERN = u'<a href="http://packages.debian.org/%(n)s">:%(n)s</a>'
 
-TAG_URL_PATTERN = u'<a href="http://identi.ca/tag/%(n)s>#%(n)s</a>'
+TAG_URL_PATTERN = u'<a href="http://identi.ca/tag/%(n)s">#%(n)s</a>'
 
 AVATAR_SIZE = '32'
 
@@ -193,4 +194,4 @@ class Message(Document):
             content = content.replace(pkg, PKG_URL_PATTERN % {'n': i})
 
         paragraphs = [(u'<p>%s</p>' % i) for i in content.split('\n\n')]
-        return u'\n'.join(paragraphs)
+        return Markup(u'\n'.join(paragraphs))

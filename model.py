@@ -149,6 +149,7 @@ class Message(Document):
             build_gravatar(vals['email'])
 
         # Finding tags and packages in the message content
+        message.content = vals['message']
         message.tags = find_tags(vals['message'])
         message.packages = find_packages(vals['message'])
 

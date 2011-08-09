@@ -116,14 +116,14 @@ class Message(Document):
     """
 
     # Sender data
-    sender_name = StringField(required=True)
+    sender_name = StringField(required=True, min_length=1)
     sender_email = EmailField()
     sender_website = StringField()
     sender_avatar = StringField()
 
     # Message itself and content found inside it through the `#' and `:'
     # symbols.
-    content = StringField()
+    content = StringField(required=True, min_length=10)
     packages = ListField(StringField())
     tags = ListField(StringField(max_length=30))
 

@@ -29,7 +29,7 @@ from mongoengine import connect, Document, StringField, EmailField, \
 connect('dad')
 
 
-AVATAR_SIZE = '40'
+AVATAR_SIZE = '32'
 
 
 def build_gravatar(email):

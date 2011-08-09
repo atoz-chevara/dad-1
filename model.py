@@ -29,6 +29,10 @@ from flask import escape
 connect('dad')
 
 
+PKG_URL_PATTERN = u'<a href="http://packages.debian.org/%(n)s">:%(n)s</a>'
+
+TAG_URL_PATTERN = u'<a href="http://identi.ca/tag/%(n)s>#%(n)s</a>'
+
 AVATAR_SIZE = '32'
 
 
@@ -179,6 +183,14 @@ class Message(Document):
         """Returns the content separated in paragraphs. The string that
         creates a new paragraph is the '\n\n'.
         """
-        content = escape(self.content)
+        content = self.content
+        for i in self.tags:
+            tag = u'#%s' % i
+            content = content.replace(tag, TAG_URL_PATTERN % {'n': i})
+
+        for i in self.packages:
+            pkg = u':%s' % i
+            content = content.replace(pkg, PKG_URL_PATTERN % {'n': i})
+
         paragraphs = [(u'<p>%s</p>' % i) for i in content.split('\n\n')]
         return u'\n'.join(paragraphs)

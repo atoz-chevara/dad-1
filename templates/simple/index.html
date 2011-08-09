@@ -47,14 +47,9 @@
 
       <div id="slideshow" class="w960">
         <ul>
-          <li><img src="{{ url_for('static', filename='imgs/fake/07252010358.jpg') }}"></li>
-          <li><img src="{{ url_for('static', filename='imgs/fake/100_0595.JPG') }}"></li>
-          <li><img src="{{ url_for('static', filename='imgs/fake/10152010536.jpg') }}"></li>
-          <li><img src="{{ url_for('static', filename='imgs/fake/10212010561.jpg') }}"></li>
-          <li><img src="{{ url_for('static', filename='imgs/fake/11072010753.jpg') }}"></li>
-          <li><img src="{{ url_for('static', filename='imgs/fake/20110415_003.jpg') }}"></li>
-          <li><img src="{{ url_for('static', filename='imgs/fake/20110513_015.jpg') }}"></li>
-          <li><img src="{{ url_for('static', filename='imgs/fake/20110524_008.jpg') }}"></li>
+          {% for msg in Message.slideshow[:8] %}
+          <li><img src="{{ url_for('image', iid=msg.id, size='120x90') }}"></li>
+          {% endfor %}
         </ul>
       </div>
 

@@ -25,7 +25,8 @@ from pyexiv2 import ImageMetadata
 import Image
 from StringIO import StringIO
 from mongoengine import connect, Document, StringField, EmailField, \
-    ListField, DictField, DateTimeField, GeoPointField, FileField
+    ListField, DictField, DateTimeField, GeoPointField, FileField, \
+    queryset_manager
 from flask import escape, Markup
 
 import conf
@@ -168,6 +169,14 @@ class Message(Document):
         message.geolocation = image_data['geolocation']
 
         return message
+
+    @queryset_manager
+    def slideshow(doc_cls, queryset):
+        """A queryset manager that lists messages with images and orders
+        by date DESC.
+        """
+        return queryset(__raw__={'$where': 'this.image !== null'})\
+            .order_by('-date')
 
     @property
     def has_image(self):

@@ -1,0 +1,20 @@
+Dependencies:
+=============
+
+APP:
+  python-flask
+  python-pyexiv2
+
+DB:
+  mongodb-server
+  python-mongoengine
+
+NodeJS Modules:
+  sass (https://github.com/visionmedia/sass.js)
+  clean-css (https://github.com/GoalSmashers/clean-css)
+
+
+Development:
+============
+
+git clone http://comum.org/~lincoln/imago.git/

@@ -24,47 +24,25 @@
       </div>
 
       <ul id="stream">
-        <li class="haveImage">
-          <img src="http://www.gravatar.com/avatar/?s=32&d=mm" alt="Person Name" class="avatar">
+        {% for msg in Message.objects[:3] %}
+        <li {% if msg.has_image %}class="haveImage"{% endif %}>
+          {% if msg.sender_website %}<a href="{{ msg.sender_website }}">{% endif %}
+          <img
+             src="{{ msg.sender_avatar }}"
+             alt="{{ msg.formatted_username }}"
+             class="avatar">
+          {% if msg.sender_website %}</a>{% endif %}
           <ul>
+            {% if msg.has_image %}
             <li class="img">
               <img class="rimg" src="{{ url_for('static', filename='imgs/fake/100_0595.JPG') }}">
             </li>
-            <li class="name"><a href="#">Michael Köhnlein</a></li>
-            <li class="msg">
-              <p>Using debian since 1998, keep up the good work!</p>
-              <p>But seriously, the iceweasel thing was just plain silly.</p>
-            </li>
+            {% endif %}
+            <li class="name"><a href="#">{{ msg.formatted_username }}</a></li>
+            <li class="msg">{{ msg.formatted_content }}</li>
           </ul>
         </li>
-        <li>
-          <img src="http://www.gravatar.com/avatar/?s=32&d=mm" alt="Person Name" class="avatar">
-          <ul>
-            <li class="name"><a href="#">Stefan Endrullis</a></li>
-            <li class="msg">
-              Well, I could thank a lot of people here for developing
-              pieces of the great software that I use daily. I know it
-              would be a VERY LONG list. But even then I'm sure I would
-              still miss thousands of developers working in the
-              background, submitting patches, writing bug reports,
-              etc. Therefore let's cut it short: Thank you all for your
-              work on open source software and especially the work on
-              Debian.
-            </li>
-          </ul>
-        </li>
-        <li class="haveImage">
-          <img src="http://www.gravatar.com/avatar/?s=32&d=mm" alt="Person Name" class="avatar">
-          <ul>
-            <li class="img">
-              <img class="rimg" src="{{ url_for('static', filename='imgs/fake/10212010561.jpg') }}">
-            </li>
-            <li class="name"><a href="#">Anonymous</a></li>
-            <li class="msg">
-              To all of you!!
-            </li>
-          </ul>
-        </li>
+        {% endfor %}
       </ul>
 
       <div id="slideshow" class="w960">

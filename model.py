@@ -24,7 +24,7 @@ from datetime import datetime
 from pyexiv2 import ImageMetadata
 from mongoengine import connect, Document, StringField, EmailField, \
     ListField, DateTimeField, GeoPointField, FileField
-
+from flask import escape
 
 connect('dad')
 
@@ -159,3 +159,26 @@ class Message(Document):
         message.geolocation = image_data['geolocation']
 
         return message
+
+    @property
+    def has_image(self):
+        """Returns a boolean value saying if we have an image or not in
+        the message.
+        """
+        return self.image.grid_id is not None
+
+    @property
+    def formatted_username(self):
+        """Returns the username collected in the message sending
+        form. If none was informed, the `Anonymous' string is
+        returned."""
+        return self.sender_name or u'Anonymous'
+
+    @property
+    def formatted_content(self):
+        """Returns the content separated in paragraphs. The string that
+        creates a new paragraph is the '\n\n'.
+        """
+        content = escape(self.content)
+        paragraphs = [(u'<p>%s</p>' % i) for i in content.split('\n\n')]
+        return u'\n'.join(paragraphs)

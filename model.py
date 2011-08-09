@@ -101,7 +101,7 @@ def process_image(url):
             longi = -longi
 
         # Saving the result
-        result['geolocation'] = {'lat': lat, 'long': longi}
+        result['geolocation'] = (lat, longi)
 
     return result
 

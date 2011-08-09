@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from flask import Flask, render_template, request
+from flask import Flask, Response, render_template, request
 from model import Message
 
 app = Flask(__name__)
@@ -22,6 +22,14 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('simple/index.html', Message=Message)
+
+
+@app.route('/image/<iid>/<size>/')
+def image(iid, size):
+    size = tuple(int(x) for x in size.split('x'))
+    return Response(
+        Message.objects.with_id(iid).thumb(size),
+        content_type='image/png')
 
 
 @app.route('/message', methods=('POST',))

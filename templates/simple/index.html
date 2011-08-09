@@ -35,7 +35,7 @@
           <ul>
             {% if msg.has_image %}
             <li class="img">
-              <img class="rimg" src="{{ url_for('static', filename='imgs/fake/100_0595.JPG') }}">
+              <img class="rimg" src="{{ url_for('image', iid=msg.id, size='80x80') }}">
             </li>
             {% endif %}
             <li class="name"><a href="#">{{ msg.formatted_username }}</a></li>

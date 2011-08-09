@@ -22,8 +22,10 @@ from hashlib import md5
 from urllib import urlencode, urlopen
 from datetime import datetime
 from pyexiv2 import ImageMetadata
+import Image
+from StringIO import StringIO
 from mongoengine import connect, Document, StringField, EmailField, \
-    ListField, DateTimeField, GeoPointField, FileField
+    ListField, DictField, DateTimeField, GeoPointField, FileField
 from flask import escape, Markup
 
 import conf
@@ -138,6 +140,7 @@ class Message(Document):
 
     # Image specific fields
     image = FileField()
+    thumbs = DictField()
     geolocation = GeoPointField()
 
     @staticmethod
@@ -196,3 +199,20 @@ class Message(Document):
 
         paragraphs = [(u'<p>%s</p>' % i) for i in content.split('\n\n')]
         return Markup(u'\n'.join(paragraphs))
+
+    def thumb(self, size):
+        """Returns a cached thumbnail (depending on the size). If it
+        does not exist, _gen_thumb() is called to deliver the image.
+        """
+        return self.thumbs.get('%dx%d' % size, self._gen_thumb(size))
+
+    def _gen_thumb(self, size):
+        """Generates a thumbnail (and caches it) based on the internal
+        `image' attribute.
+        """
+        output = StringIO()
+        img = Image.open(StringIO(self.image.read()))
+        img.thumbnail(size, Image.ANTIALIAS)
+        img.save(output, 'PNG')
+        self.thumbs['%dx%d' % size] = output.getvalue()
+        return self.thumbs['%dx%d' % size]

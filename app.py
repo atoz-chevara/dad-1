@@ -13,7 +13,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from model import Message
 
 app = Flask(__name__)
 
@@ -21,6 +22,12 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('simple/index.html')
+
+
+@app.route('/message', methods=('POST',))
+def message():
+    msg = Message.from_request(request)
+    import pdb; pdb.set_trace()
 
 
 if __name__ == '__main__':

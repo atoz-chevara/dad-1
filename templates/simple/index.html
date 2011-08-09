@@ -38,7 +38,11 @@
               <img class="rimg" src="{{ url_for('image', iid=msg.id, size='80x80') }}">
             </li>
             {% endif %}
-            <li class="name"><a href="#">{{ msg.formatted_username }}</a></li>
+            <li class="name">
+              {% if msg.sender_website %}<a href="{{ msg.sender_website }}">{% endif %}
+                {{ msg.formatted_username }}
+              {% if msg.sender_website %}</a>{% endif %}
+            </li>
             <li class="msg">{{ msg.formatted_content }}</li>
           </ul>
         </li>

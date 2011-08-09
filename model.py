@@ -39,20 +39,20 @@ def build_gravatar(email):
     return url
 
 
-TAG_REGEXP = re.compile('\#[\w\-]+')
+TAG_REGEXP = re.compile('\#([\w\-]+)')
 
 def find_tags(content):
     """Finds words prefixed with a hashtag `#' symbol
     """
-    TAG_REGEXP.findall(content)
+    return TAG_REGEXP.findall(content)
 
 
-PKG_REGEXP = re.compile('\:[\w\-]+')
+PKG_REGEXP = re.compile('\:([\w\-]+)')
 
 def find_packages(content):
     """Finds words prefixed with a hashtag `#' symbol
     """
-    PKG_REGEXP.findall(content)
+    return PKG_REGEXP.findall(content)
 
 
 def process_image(url):
@@ -120,7 +120,7 @@ class Message(Document):
     # Message itself and content found inside it through the `#' and `:'
     # symbols.
     content = StringField()
-    referenced_packages = ListField(StringField())
+    packages = ListField(StringField())
     tags = ListField(StringField(max_length=30))
 
     # General metadata
@@ -146,7 +146,7 @@ class Message(Document):
 
         # Finding tags and packages in the message content
         message.tags = find_tags(vals['message'])
-        message.referenced_packages = find_packages(vals['message'])
+        message.packages = find_packages(vals['message'])
 
         # Filling out image attribute
         image_data = process_image(vals['image'])

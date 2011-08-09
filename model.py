@@ -78,11 +78,12 @@ def process_image(url):
     metadata.read()
 
     # Geolocation stuff
+    get = lambda key:metadata.get(key) and metadata.get(key).value or ''
     data = {
-        'longref': metadata.get('Exif.GPSInfo.GPSLongitudeRef').value,
-        'long': metadata.get('Exif.GPSInfo.GPSLongitude').value,
-        'latref': metadata.get('Exif.GPSInfo.GPSLatitudeRef').value,
-        'lat': metadata.get('Exif.GPSInfo.GPSLatitude').value,
+        'longref': get('Exif.GPSInfo.GPSLongitudeRef'),
+        'long': get('Exif.GPSInfo.GPSLongitude'),
+        'latref': get('Exif.GPSInfo.GPSLatitudeRef'),
+        'lat': get('Exif.GPSInfo.GPSLatitude'),
     }
 
     # If one single key is missing, we can't process it

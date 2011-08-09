@@ -2,19 +2,68 @@
 <html>
   <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <title>Thank you Debian</title>
   </head>
   <body>
-    <div id="wrapper">
-      <header>
-        <h1>Thank you Debian!</h1>
-      </header>
-      <div id="content">
-        <img src="{{ url_for('static', filename='imgs/map.png') }}">
-        <div id="column1"><h2>Post your picture</h2></div>
-        <div id="column2"><h2>Debian days around the globe</h2></div>
-      </div>
+    <header class="w960">
+      <h1><a href="{{ url_for('index') }}">Thank you Debian!</a></h1>
+    </header>
+
+    <div id="slideshow">
+      <ul>
+        <li><img src="{{ url_for('static', filename='imgs/fake/07252010358.jpg') }}"></li>
+        <li><img src="{{ url_for('static', filename='imgs/fake/100_0595.JPG') }}"></li>
+        <li><img src="{{ url_for('static', filename='imgs/fake/10152010536.jpg') }}"></li>
+        <li><img src="{{ url_for('static', filename='imgs/fake/10212010561.jpg') }}"></li>
+        <li><img src="{{ url_for('static', filename='imgs/fake/11072010753.jpg') }}"></li>
+        <li><img src="{{ url_for('static', filename='imgs/fake/20110415_003.jpg') }}"></li>
+        <li><img src="{{ url_for('static', filename='imgs/fake/20110513_015.jpg') }}"></li>
+        <li><img src="{{ url_for('static', filename='imgs/fake/20110524_008.jpg') }}"></li>
+      </ul>
     </div>
+
+    <div id="content" class="w960">
+      <ul id="stream">
+        <li>
+          <img src="" alt="Person Name" class="avatar">
+          <ul>
+            <li class="name">Lincoln de Sousa</li>
+            <li class="msg">
+              Aenean odio neque, lacinia rhoncus venenatis quis,
+              tincidunt a velit. Proin et felis vitae velit lacinia
+              #thxdebian egestas et in nunc
+            </li>
+            <li class="img"><img src=""></li>
+          </ul>
+        </li>
+
+        <li>
+          <img src="" alt="Person Name" class="avatar">
+          <ul>
+            <li class="name">Lincoln de Sousa</li>
+            <li class="msg">
+              <p>
+                Vestibulum ante ipsum primis in faucibus orci luctus
+                et ultrices posuere cubilia Curae; Etiam eu ipsum
+                vitae tortor viverra congue. Sed sed.
+              </p>
+
+              <p>
+                Aenean odio neque, lacinia rhoncus venenatis quis,
+                tincidunt a velit. Proin et felis vitae velit lacinia
+                #thxdebian egestas et in nunc
+              </p>
+            </li>
+            <li class="img"><img src=""></li>
+          </ul>
+        </li>
+      </ul>
+
+      <div id="column1"><h2>Post your picture</h2></div>
+      <div id="column2"><h2>Debian days around the globe</h2></div>
+    </div>
+
     <footer>
     </footer>
   </body>

@@ -29,6 +29,9 @@ from mongoengine import connect, Document, StringField, EmailField, \
 connect('dad')
 
 
+AVATAR_SIZE = '40'
+
+
 def build_gravatar(email):
     """Builds a gravatar url to get an avatar to a registered user or
     the default one

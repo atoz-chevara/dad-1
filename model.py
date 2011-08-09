@@ -186,7 +186,7 @@ class Message(Document):
     @property
     def formatted_content(self):
         """Returns the content separated in paragraphs. The string that
-        creates a new paragraph is the '\n\n'.
+        creates a new paragraph is the '\n'.
         """
         content = self.content
         for i in self.tags:
@@ -197,7 +197,7 @@ class Message(Document):
             pkg = u':%s' % i
             content = content.replace(pkg, PKG_URL_PATTERN % {'n': i})
 
-        paragraphs = [(u'<p>%s</p>' % i) for i in content.split('\n\n')]
+        paragraphs = [(u'<p>%s</p>' % i) for i in content.split('\n')]
         return Markup(u'\n'.join(paragraphs))
 
     def thumb(self, size):

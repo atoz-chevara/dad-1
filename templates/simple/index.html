@@ -3,11 +3,19 @@
   <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/awesome.css') }}">
     <title>Thank you Debian</title>
   </head>
   <body>
     <header>
-      <h1 class="w960"><a href="{{ url_for('index') }}">Debian appreciation day!</a></h1>
+      <div class="w960">
+        <ul class="menu">
+          <li><a href="#">All messages</a></li>
+          <li><a href="#">More about DAD</a></li>
+          <li><a href="#">How to help Debian</a></li>
+        </ul>
+        <h1><a href="{{ url_for('index') }}">Debian appreciation day!</a></h1>
+      </div>
     </header>
 
     <div id="slideshow" class="w960">
@@ -84,7 +92,7 @@
           </p>
         </fieldset>
 
-        <div id="sendButton"><input type="submit" value="Say thanks"></div>
+        <button class="awesome">Send your message »</button>
       </form>
 
       <ul id="sidebar">

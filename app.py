@@ -15,6 +15,8 @@
 
 from flask import Flask, Response, render_template, request
 from model import Message
+from mongoengine import ValidationError
+from json import dumps
 
 app = Flask(__name__)
 
@@ -40,8 +42,11 @@ def image(iid, size):
 @app.route('/message', methods=('POST',))
 def message():
     msg = Message.from_request(request)
-    msg.save()
-    return 'ok'
+    try:
+        msg.save()
+    except ValidationError, e:
+        return dumps({'status': 'error', 'message': e.message})
+    return {'status': 'ok'}
 
 
 if __name__ == '__main__':

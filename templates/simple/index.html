@@ -49,6 +49,15 @@
 
 <form id="thanks" method="post" action="{{ url_for('message') }}">
   <h3>Your Message</h3>
+  <div class="errMsg">
+    Sorry, there was an error while processing your message:
+    <pre>String value is too short</pre>
+  </div>
+
+  <div class="successMsg">
+    Thank you very much for your feedback!
+  </div>
+
   <fieldset>
     <p class="helpText">
       If you want to send a direct thank you for a package

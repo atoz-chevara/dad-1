@@ -45,7 +45,7 @@ def build_gravatar(email):
     """Builds a gravatar url to get an avatar to a registered user or
     the default one
     """
-    url = "http://www.gravatar.com/avatar/%s?%s" % (
+    url = "http://www.gravatar.com/avatar/%s?%s&d=mm" % (
         email and md5(email.lower()).hexdigest() or '',
         urlencode({ 's': AVATAR_SIZE }))
     return url

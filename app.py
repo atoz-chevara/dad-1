@@ -46,7 +46,7 @@ def message():
         msg.save()
     except ValidationError, e:
         return dumps({'status': 'error', 'message': e.message})
-    return {'status': 'ok'}
+    return dumps({'status': 'ok'})
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@
 from flask import Flask, Response, render_template, request
 from model import Message
 from mongoengine import ValidationError
-from json import dumps
+from json import dumps, loads
 
 app = Flask(__name__)
 
@@ -52,6 +52,22 @@ def message():
     except ValidationError, e:
         return dumps({'status': 'error', 'message': e.message})
     return dumps({'status': 'ok'})
+
+@app.route('/people.json')
+def people_json():
+    people = []
+    for msg in Message.objects:
+        if msg.geolocation:
+            people.append(loads(
+                '{"name":"%s", "thumb":"%s", "latitude":"%s", "longitude":"%s"}' % (
+                    msg.sender_name,
+                    msg.sender_avatar,
+                    msg.geolocation[1],
+                    msg.geolocation[0])
+             ))
+
+    collection = dumps({"people": people})
+    return collection
 
 
 if __name__ == '__main__':

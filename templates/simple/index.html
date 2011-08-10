@@ -5,9 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="map">
-  <img alt="Map" src="{{ url_for('static', filename='imgs/map.png') }}">
-</div>
+<div id="map"></div>
 
 <ul id="stream">
   {% for msg in Message.objects[:3].order_by('-date') %}

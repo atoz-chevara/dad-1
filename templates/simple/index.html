@@ -2,7 +2,7 @@
 
 {% block content %}
 <div id="map">
-  <img src="{{ url_for('static', filename='imgs/map.png') }}">
+  <img alt="Map" src="{{ url_for('static', filename='imgs/map.png') }}">
 </div>
 
 <ul id="stream">
@@ -17,7 +17,9 @@
     <ul>
       {% if msg.has_image %}
       <li class="img">
-        <img class="rimg" src="{{ url_for('image', iid=msg.id, size='80x80') }}">
+        <img
+           alt="Pic taken by {{ msg.sender_name }}"
+           class="rimg" src="{{ url_for('image', iid=msg.id, size='80x80') }}">
       </li>
       {% endif %}
       <li class="name">
@@ -34,7 +36,9 @@
 <div id="slideshow" class="w960">
   <ul>
     {% for msg in Message.slideshow[:8] %}
-    <li><img src="{{ url_for('image', iid=msg.id, size='120x90') }}"></li>
+    <li><img
+           alt="Pick taken by {{ msg.sender_name }}"
+           src="{{ url_for('image', iid=msg.id, size='120x90') }}"></li>
     {% endfor %}
   </ul>
 </div>

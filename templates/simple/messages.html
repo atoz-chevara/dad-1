@@ -1,0 +1,64 @@
+{% extends 'simple/layout.html' %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/messages.css') }}">
+{% endblock %}
+
+{% block body_class %}gallery{% endblock %}
+
+{% block content %}
+
+<div id="stream">
+  <h2 class="title">Messages</h2>
+  <ul>
+    {% for msg in Message.objects.order_by('-date')[:20] %}
+    <li>
+      <a name="{{ msg.id }}"></a>
+      {% if msg.sender_website %}<a href="{{ msg.sender_website }}">{% endif %}
+        <img
+           src="{{ msg.sender_avatar }}"
+           alt="{{ msg.formatted_username }}"
+           class="avatar">
+        {% if msg.sender_website %}</a>{% endif %}
+      <div class="to">this thanks goes to <strong>Debian Community</strong></div>
+      <div class="sender">
+        {% if msg.sender_website %}<a href="{{ msg.sender_website }}">{% endif %}
+          <strong>{{ msg.sender_name }}</strong>
+          {% if msg.sender_website %}</a>{% endif %}
+      </div>
+      <div class="msg">{{ msg.formatted_content }}</div>
+
+      {% if msg.has_image %}
+      <a href="{{ url_for('image', iid=msg.id, size='800x600') }}">
+        <img
+           alt="Pic taken by {{ msg.sender_name }}"
+           src="{{ url_for('image', iid=msg.id, size='120x90') }}">
+      </a>
+      {% endif %}
+      {% if msg.geolocation %}
+      <div class="map">
+        <img
+           alt="Map pin"
+           src="{{ url_for('static', filename='imgs/ico-map.png') }}">
+      </div>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div id="stats">
+  <h2 class="title">Stats til now</h2>
+  <ul>
+    <li>
+      <label>Messages</label>
+      <div>{{ Message.objects.count() }}</div>
+    </li>
+    <li>
+      <label>Pictures</label>
+      <div>{{ Message.slideshow.count() }}</div>
+    </li>
+  </ul>
+</div>
+
+{% endblock content %}

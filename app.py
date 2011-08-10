@@ -31,6 +31,11 @@ def gallery():
     return render_template('simple/gallery.html', Message=Message)
 
 
+@app.route('/messages')
+def messages():
+    return render_template('simple/messages.html', Message=Message)
+
+
 @app.route('/image/<iid>/<size>/')
 def image(iid, size):
     size = tuple(int(x) for x in size.split('x'))

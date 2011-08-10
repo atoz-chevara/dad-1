@@ -1,5 +1,9 @@
 {% extends 'simple/layout.html' %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
 {% block content %}
 <div id="map">
   <img alt="Map" src="{{ url_for('static', filename='imgs/map.png') }}">
@@ -50,8 +54,7 @@
 <form id="thanks" method="post" action="{{ url_for('message') }}">
   <h3>Your Message</h3>
   <div class="errMsg">
-    Sorry, there was an error while processing your message:
-    <pre>String value is too short</pre>
+    Sorry, there was an error while processing your message: <pre></pre>
   </div>
 
   <div class="successMsg">

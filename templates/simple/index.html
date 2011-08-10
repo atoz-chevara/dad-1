@@ -37,7 +37,7 @@
   <ul>
     {% for msg in Message.slideshow[:8] %}
     <li><img
-           alt="Pick taken by {{ msg.sender_name }}"
+           alt="Pic taken by {{ msg.sender_name }}"
            src="{{ url_for('image', iid=msg.id, size='120x90') }}"></li>
     {% endfor %}
   </ul>

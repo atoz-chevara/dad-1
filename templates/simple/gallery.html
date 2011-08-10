@@ -12,7 +12,9 @@
   {% for msg in Message.slideshow[:8] %}
   <li>
     <a href="{{ url_for('image', iid=msg.id, size='800x600') }}">
-      <img src="{{ url_for('image', iid=msg.id, size='120x90') }}">
+      <img
+         alt="Pic taken by {{ msg.sender_name }}"
+         src="{{ url_for('image', iid=msg.id, size='120x90') }}">
     </a>
     <div class="sender">
       by
@@ -22,7 +24,9 @@
     </div>
     {% if msg.geolocation %}
     <div class="map">
-      <img src="{{ url_for('static', filename='imgs/ico-map.png') }}">
+      <img
+         alt="Map pin"
+         src="{{ url_for('static', filename='imgs/ico-map.png') }}">
     </div>
     {% endif %}
   </li>

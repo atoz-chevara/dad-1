@@ -1,0 +1,32 @@
+{% extends 'simple/layout.html' %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
+{% endblock %}
+{% block body_class %}gallery{% endblock %}
+
+{% block content %}
+<h2 class="title">Gallery</h2>
+
+<ul id="slideshow">
+  {% for msg in Message.slideshow[:8] %}
+  <li>
+    <a href="{{ url_for('image', iid=msg.id, size='800x600') }}">
+      <img src="{{ url_for('image', iid=msg.id, size='120x90') }}">
+    </a>
+    <div class="sender">
+      by
+      {% if msg.sender_website %}<a href="{{ msg.sender_website }}">{% endif %}
+      {{ msg.sender_name }}
+      {% if msg.sender_website %}</a>{% endif %}
+    </div>
+    {% if msg.geolocation %}
+    <div class="map">
+      <img src="{{ url_for('static', filename='imgs/ico-map.png') }}">
+    </div>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock content %}

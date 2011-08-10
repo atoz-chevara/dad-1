@@ -24,6 +24,11 @@ def index():
     return render_template('simple/index.html', Message=Message)
 
 
+@app.route('/gallery')
+def gallery():
+    return render_template('simple/gallery.html', Message=Message)
+
+
 @app.route('/image/<iid>/<size>/')
 def image(iid, size):
     size = tuple(int(x) for x in size.split('x'))

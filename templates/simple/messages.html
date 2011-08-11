@@ -46,6 +46,18 @@
            src="{{ url_for('image', iid=msg.id, size='120x90') }}">
       </a>
       {% endif %}
+
+      {% if msg.packages %}
+      <div class="pkgs">
+        <strong>Developers cited:</strong>
+        <ul>
+          {% for pkg in msg.packages %}
+          <li>» {{ pkg }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
       {% if msg.geolocation %}
       <div class="map">
         <img

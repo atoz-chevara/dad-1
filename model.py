@@ -178,6 +178,13 @@ class Message(Document):
         return queryset(__raw__={'$where': 'this.image !== null'})\
             .order_by('-date')
 
+    @queryset_manager
+    def geolocations(doc_cls, queryset):
+        """A queryset manager that lists only messages with geolocation
+        information.
+        """
+        return queryset(__raw__={'$where': 'this.geolocation !== null'})
+
     @property
     def has_image(self):
         """Returns a boolean value saying if we have an image or not in
@@ -225,3 +232,14 @@ class Message(Document):
         img.save(output, 'PNG')
         self.thumbs['%dx%d' % size] = output.getvalue()
         return self.thumbs['%dx%d' % size]
+
+    def to_json(self):
+        """Returns a JSON representation of the object
+        """
+        base = self.to_mongo().copy()
+        for key in '_cls', '_id', '_types', 'image', 'thumbs', 'sender_email':
+            del base[key]
+        base['longitude'] = self.geolocation and self.geolocation[0]
+        base['latitude'] = self.geolocation and self.geolocation[1]
+        base['date'] = base['date'].isoformat()
+        return base

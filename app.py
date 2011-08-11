@@ -63,21 +63,10 @@ def message():
         return dumps({'status': 'error', 'message': e.message})
     return dumps({'status': 'ok'})
 
+
 @app.route('/people.json')
 def people_json():
-    people = []
-    for msg in Message.objects:
-        if msg.geolocation:
-            people.append(loads(
-                '{"name":"%s", "thumb":"%s", "latitude":"%s", "longitude":"%s"}' % (
-                    msg.sender_name,
-                    msg.sender_avatar,
-                    msg.geolocation[1],
-                    msg.geolocation[0])
-             ))
-
-    collection = dumps({"people": people})
-    return collection
+    return dumps([msg.to_json() for msg in Message.geolocations])
 
 
 if __name__ == '__main__':

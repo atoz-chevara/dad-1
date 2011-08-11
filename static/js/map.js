@@ -52,21 +52,21 @@ function map_init() {
         var size = new OpenLayers.Size(21, 25);
         var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
 
-        for (var x in data.people) {
-            var icon = new OpenLayers.Icon(data.people[x].thumb, size, offset);
+        for (var x in data) {
+            var icon = new OpenLayers.Icon(data[x].sender_avatar, size, offset);
             var location = new OpenLayers.LonLat(
-                data.people[x].longitude,
-                data.people[x].latitude);
-            var transform = location.transform(display_projection, projection)
+                data[x].longitude,
+                data[x].latitude);
+            var transform = location.transform(display_projection, projection);
             var marker = new OpenLayers.Marker(transform, icon);
             var display_popup = function (evt) {
-                alert( data.people[x].name );
+                alert( data[x].sender_name );
                 OpenLayers.Event.stop(evt);
-            }
+            };
             marker.events.register('mousedown', marker, display_popup);
             markers.addMarker(marker);
         }
-    }
+    };
 
     var url = "/people.json";
     var parameters = {};

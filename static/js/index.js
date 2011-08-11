@@ -73,4 +73,33 @@
         '#thxdebian',
         {service: 'identi.ca', limit: 5, rate: 5000});
 
+
+    /* Setting up user avatar url after filling email (gravatar) or
+     * avatar url  */
+    var defaultGravatar = 'http://www.gravatar.com/avatar/?s=48&d=mm';
+    $('#email').change(function () {
+        if ($('#avatar').val() === '' &&
+            $('#email').val() === '' &&
+            $('#gravatar').val() !== defaultGravatar) {
+            /* Let's set the default avatar coming from gravatar if, and
+             * only if, the user has changed it */
+            $('#gravatar').attr('src', defaultGravatar);
+        } else if ($('#avatar').val() === '') {
+            /* Using gravatar's `API' to get an url for the user's
+             * avatar */
+            var url = "http://www.gravatar.com/avatar/" +
+                    $.md5($(this).val()) +
+                    '?s=48&d=mm';
+            $('#gravatar').attr('src', url);
+        }
+    });
+
+    $('#avatar').change(function () {
+        var val = $(this).val();
+        if (val !== '') {
+            $('#gravatar').attr('src', val);
+        } else {
+            $('#email').change();
+        }
+    });
 }).call(this);

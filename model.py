@@ -27,7 +27,7 @@ from StringIO import StringIO
 from mongoengine import connect, Document, StringField, EmailField, \
     ListField, DictField, DateTimeField, GeoPointField, FileField, \
     queryset_manager
-from flask import escape, Markup
+from flask import escape, url_for, Markup
 
 import conf
 
@@ -242,4 +242,6 @@ class Message(Document):
         base['longitude'] = self.geolocation and self.geolocation[0]
         base['latitude'] = self.geolocation and self.geolocation[1]
         base['date'] = base['date'].isoformat()
+        base['id'] = str(self.id)
+        base['image_url'] = url_for('image', iid=self.id, size='800x600')
         return base

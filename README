@@ -17,6 +17,7 @@ Packaged software
  * python-mongoengine
  * libjs-jquery
  * libjs-openlayers
+ * libjs-jquery-fancybox
 
 NodeJS Modules (not-packaged)
 -----------------------------

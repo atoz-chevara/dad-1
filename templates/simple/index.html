@@ -19,6 +19,8 @@
         src="{{ url_for('static', filename='js/easing/jquery.easing.js') }}"></script>
 <script type="text/javascript"
         src="{{ url_for('static', filename='js/fancybox/jquery.fancybox.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='js/jquery.livetwitter.js') }}"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -35,6 +37,10 @@ $(document).ready(function() {
         'titleFormat'   : title_format,
         'type' : 'image'
     });
+
+    $('#identica_search').liveTwitter(
+        '#thxdebian',
+        {service: 'identi.ca', limit: 5, rate: 5000});
 
 });
 </script>
@@ -153,29 +159,9 @@ $(document).ready(function() {
 </form>
 
 <ul id="sidebar">
-  <li>
+  <li class="tweets">
     <h3>#thxdebian on identi.ca</h3>
-    <ul>
-      <li>
-        <a href="#">@someone</a> Cras feugiat egestas
-        blandit. Proin gravida, eros id tempor fermentum, est
-        justo commodo turpis, in accumsan erat erat nec
-        magna <a href="#">#thxdebian</a>
-      </li>
-
-      <li>
-        <a href="#">@anotherone</a> Aenean odio neque, lacinia
-        rhoncus venenatis quis, tincidunt a velit. Proin et
-        felis vitae velit lacinia <a href="#">#thxdebian</a>
-        egestas et in nunc.
-      </li>
-
-      <li>
-        <a href="#">@lincoln</a> <a href="#">#thxdebian</a>
-        Vestibulum ante ipsum primis in faucibus orci luctus et
-        ultrices posuere cubilia Curae
-      </li>
-    </ul>
+	<div id="identica_search"></div>
   </li>
 
   <li class="gallery">

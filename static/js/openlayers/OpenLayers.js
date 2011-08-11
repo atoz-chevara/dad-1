@@ -1,1 +1,1 @@
-/usr/share/javascript/openlayers/OpenLayers.min.js
+/usr/share/libjs-openlayers/OpenLayers.js

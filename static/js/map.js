@@ -34,7 +34,6 @@ function map_init() {
                 new OpenLayers.Control.ScaleLine(),
                 new OpenLayers.Control.Permalink('Permalink'),
                 new OpenLayers.Control.MousePosition(),
-                new OpenLayers.Control.KeyboardDefaults()
             ],
             numZoomLevels: zoom_levels,
         });

@@ -29,7 +29,34 @@
     {% endblock %}
     <footer>
       <div class="w960">
-        oi
+        <div class="column1">
+          <h3>Content</h3>
+          <ul class="menu">
+            <li><a href="{{ url_for('gallery') }}">Gallery</a></li>
+            <li><a href="{{ url_for('messages') }}">All messages</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('help') }}">How to help Debian</a></li>
+            <li><a href="{{ url_for('index') }}#form">Send a message</a></li>
+          </ul>
+        </div>
+
+        <div class="column2">
+          <h3>Source code</h3>
+          <p>
+            This website is
+            <a href="http://www.gnu.org/philosophy/philosophy.html">free
+            (as in freedom)</a> and you can get its source code by
+            issuing the following command in your computer:
+          </p>
+          <pre>$ git clone http://git.comum.org/dad.git</pre>
+          <p>
+            Or you
+            can <a href="http://git.comum.org/web/dad.git">browse</a>
+            our repo online</p>
+          </p>
+        </div>
+
+        <br class="clear">
       </div>
     </footer>
   </body>

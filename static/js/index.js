@@ -53,4 +53,24 @@
         $.ajax(params);
         return false;
     });
+
+    /* Fancybox for slideshow */
+    var title_format = function(title, currentArray, currentIndex, currentOpts){
+        return '<span id="fancybox-title-over">Image ' +  (currentIndex + 1) +
+            ' / ' + currentArray.length + ' ' + title + '</span>';
+    };
+
+    $("a[rel=group]").fancybox({
+        'transitionIn'  : 'none',
+        'transitionOut' : 'none',
+        'titlePosition' : 'over',
+        'titleFormat'   : title_format,
+        'type' : 'image'
+    });
+
+    /* Setting up `identi.ca' box */
+    $('#identica_search').liveTwitter(
+        '#thxdebian',
+        {service: 'identi.ca', limit: 5, rate: 5000});
+
 }).call(this);

@@ -80,3 +80,7 @@ function map_init() {
         projection);
     map.setCenter(initial_transform, initial_zoom);
 }
+
+$().ready(function () {
+    map_init();
+});

@@ -36,6 +36,16 @@ def messages():
     return render_template('simple/messages.html', Message=Message)
 
 
+@app.route('/about')
+def about():
+    return render_template('simple/about.html')
+
+
+@app.route('/help')
+def help():
+    return render_template('simple/help.html')
+
+
 @app.route('/image/<iid>/<size>/')
 def image(iid, size):
     size = tuple(int(x) for x in size.split('x'))

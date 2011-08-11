@@ -1,11 +1,8 @@
  * Index page
-   - Identi.ca widget
    - Debian lovers widget (show a random pic there)
 
  * General stuff
    - Moderation page
-   - About page
-   - How to help page
    - Footer
    - Search?
 
@@ -13,7 +10,6 @@
    - Save the Team choosen by the user in the db
 
  * Gallery
-   - Javascript! A lot of javascript!
    - search?
    - Show the number of pics available?
 

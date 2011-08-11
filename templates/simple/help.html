@@ -1,0 +1,46 @@
+{% extends 'simple/layout.html' %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/help.css') }}">
+{% endblock %}
+
+{% block content %}
+<h2 class="title">How to help <strong>Debian</strong></h2>
+
+<p>
+  If you want to help Debian to be better everyday, here are some tips to help out.
+</p>
+
+<ul> 
+  <li>
+    <a href="http://wiki.debian.org/Promote" target="_blank">Promote</a>
+    the use of Debian.
+  </li> 
+  <li>
+    <a href="http://www.debian.org/Bugs" target="_blank">
+      Report and fix bugs
+    </a>.
+  </li> 
+  <li>
+    Join <a href="http://wiki.debian.org/DDTP" target="_blank">the
+    DDTP</a> and translate all Debian Package Descriptions.
+  </li>
+  <li>
+    Get involved in one of
+    the <a href="http://wiki.debian.org/Teams">Debian Teams</a>.
+  </li>
+  <li>
+    Find out other <a href="http://wiki.debian.org/DebianDevelopment"
+    target="_blank">development tasks</a>.
+  </li>
+  <li>
+    If you want to help by giving money to Debian, please visit
+    the <a href="http://www.debian.org/donations">donations</a> page.
+  </li>
+  <li>
+    Encourage developers to keep doing a good job by sending
+    a <a href="{{ url_for('index') }}#msgForm">thank you</a> for them :)
+  </li>
+</ul>
+
+{% endblock content %}

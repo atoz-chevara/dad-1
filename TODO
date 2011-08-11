@@ -1,7 +1,6 @@
  * Index page
    - Identi.ca widget
    - Debian lovers widget (show a random pic there)
-   - Make the map work
 
  * General stuff
    - Moderation page
@@ -11,8 +10,6 @@
    - Search?
 
  * Message form
-   - Javascript validation
-   - Do not reload page to send the form
    - Save the Team choosen by the user in the db
 
  * Gallery

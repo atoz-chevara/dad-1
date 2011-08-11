@@ -1,5 +1,6 @@
  * Index page
    - Debian lovers widget (show a random pic there)
+   - Show users in the Map (geolocation)
 
  * General stuff
    - Moderation page
@@ -9,7 +10,9 @@
    - Save the Team choosen by the user in the db
    - Update the stream with the just added message
    - Update the map if we find geostuff
+   - Update the gallery if message has image
    - Fix geolocation calculation in image
+   - Email is not a required field
 
  * Gallery
    - search?

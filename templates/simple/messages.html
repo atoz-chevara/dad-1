@@ -2,9 +2,20 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/messages.css') }}">
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='js/fancybox/jquery.fancybox.css') }}">
 {% endblock %}
 
-{% block body_class %}gallery{% endblock %}
+{% block javascripts %}
+<script type="text/javascript"
+        src="{{ url_for('static', filename='js/mousewheel/jquery.mousewheel.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='js/easing/jquery.easing.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='js/fancybox/jquery.fancybox.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='js/gallery.js') }}"></script>
+{% endblock %}
 
 {% block content %}
 
@@ -29,7 +40,7 @@
       <div class="msg">{{ msg.formatted_content }}</div>
 
       {% if msg.has_image %}
-      <a href="{{ url_for('image', iid=msg.id, size='800x600') }}">
+      <a rel="group" href="{{ url_for('image', iid=msg.id, size='800x600') }}">
         <img
            alt="Pic taken by {{ msg.sender_name }}"
            src="{{ url_for('image', iid=msg.id, size='120x90') }}">

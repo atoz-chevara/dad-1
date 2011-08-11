@@ -34,7 +34,7 @@ import conf
 connect(conf.DATABASE_NAME)
 
 
-PKG_URL_PATTERN = u'<a href="http://packages.debian.org/%(n)s">:%(n)s</a>'
+PKG_URL_PATTERN = u'<a href="http://packages.debian.org/%(n)s">%(n)s</a>'
 
 TAG_URL_PATTERN = u'<a href="http://identi.ca/tag/%(n)s">#%(n)s</a>'
 

@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/awesome.css') }}">
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/openlayers/OpenLayers.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/map.js') }}"></script>
     {% block extra_head %}{% endblock %}
     <title>Thank you Debian</title>
   </head>
@@ -24,6 +21,11 @@
     <div id="content" class="w960">
       {% block content %}{% endblock %}
     </div>
+
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"
+            type="text/javascript"></script>
+    {% block javascripts %}
+    {% endblock %}
     <footer>
       <div class="w960">
         oi

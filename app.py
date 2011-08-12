@@ -17,6 +17,7 @@ from flask import Flask, Response, render_template, request
 from model import Message
 from mongoengine import ValidationError
 from json import dumps, loads
+import conf
 
 app = Flask(__name__)
 
@@ -70,4 +71,4 @@ def people_json():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host=conf.HOST, port=conf.PORT, debug=conf.DEBUG)

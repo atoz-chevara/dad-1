@@ -33,7 +33,7 @@
 <ul id="stream">
   {% for msg in Message.objects[:3].order_by('-date') %}
   <li {% if msg.has_image %}class="haveImage"{% endif %}>
-    {% if msg.sender_website %}<a href="{{ msg.sender_website }}">{% endif %}
+    {% if msg.sender_website %}<a href="{{ msg.formatted_website }}">{% endif %}
       <img
          src="{{ msg.sender_avatar }}"
          alt="{{ msg.formatted_username }}"
@@ -48,7 +48,7 @@
       </li>
       {% endif %}
       <li class="name">
-        {% if msg.sender_website %}<a href="{{ msg.sender_website }}">{% endif %}
+        {% if msg.sender_website %}<a href="{{ msg.formatted_website }}">{% endif %}
           {{ msg.formatted_username }}
           {% if msg.sender_website %}</a>{% endif %}
       </li>

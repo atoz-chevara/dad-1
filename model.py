@@ -234,6 +234,15 @@ class Message(Document):
         """
         return self.sender_geolocation or self.image_geolocation or None
 
+    @property
+    def formatted_website(self):
+        """Returns the website with http://
+        """
+        website = self.sender_website
+        if not website.startswith('http://'):
+            website = website.replace(website, "http://%s" % website)
+        return website
+
     def thumb(self, size):
         """Returns a cached thumbnail (depending on the size). If it
         does not exist, _gen_thumb() is called to deliver the image.

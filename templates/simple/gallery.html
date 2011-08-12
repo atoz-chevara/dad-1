@@ -33,7 +33,7 @@
     </a>
     <div class="sender">
       by
-      {% if msg.sender_website %}<a href="{{ msg.sender_website }}">{% endif %}
+      {% if msg.sender_website %}<a href="{{ msg.formatted_website }}">{% endif %}
       {{ msg.sender_name }}
       {% if msg.sender_website %}</a>{% endif %}
     </div>

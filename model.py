@@ -152,24 +152,27 @@ class Message(Document):
         # Avoiding dots
         vals = request.values
 
+        # Ensuring that a value will be None if we receive it empty
+        val = lambda key:vals.get(key) and vals[key] or None
+
         # Filling out sender attributes
-        message.sender_name = vals['name']
-        message.sender_email = vals['email']
-        message.sender_website = vals['url']
-        message.sender_avatar = vals['avatar'] or \
-            build_gravatar(vals['email'])
-        if vals.get('latitude') and vals.get('longitude'):
+        message.sender_name = val('name')
+        message.sender_email = val('email')
+        message.sender_website = val('url')
+        message.sender_avatar = val('avatar') or \
+            build_gravatar(val('email'))
+        if val('latitude') and val('longitude'):
             message.sender_geolocation = (
-                float(vals['longitude']),
-                float(vals['latitude']))
+                float(val('longitude')),
+                float(val('latitude')))
 
         # Finding tags and packages in the message content
-        message.content = escape(vals['message'])
-        message.tags = find_tags(vals['message'])
+        message.content = escape(val('message'))
+        message.tags = find_tags(val('message'))
         message.packages = find_packages(vals['message'])
 
         # Filling out image attribute
-        image_data = process_image(vals['image'])
+        image_data = process_image(val('image'))
         message.image = image_data['image']
         message.image_geolocation = image_data['geolocation']
 
@@ -253,7 +256,11 @@ class Message(Document):
         """
         base = self.to_mongo().copy()
         for key in '_cls', '_id', '_types', 'image', 'thumbs', 'sender_email':
-            del base[key]
+            # `sender_email' is not required, so it could be missing!
+            try:
+                del base[key]
+            except KeyError:
+                continue
 
         # Readding some important fields that needed to be converted
         # before being added to a JSON object.

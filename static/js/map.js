@@ -30,33 +30,36 @@ function map_init() {
             controls: [
                 new OpenLayers.Control.Navigation(),
                 new OpenLayers.Control.PanZoomBar(),
-                //new OpenLayers.Control.LayerSwitcher(),
                 new OpenLayers.Control.ScaleLine(),
                 new OpenLayers.Control.Permalink('Permalink'),
-                new OpenLayers.Control.MousePosition(),
+                new OpenLayers.Control.MousePosition()
             ],
-            numZoomLevels: zoom_levels,
+            numZoomLevels: zoom_levels
         });
 
     // OSM layer
-    var osm = new OpenLayers.Layer.OSM ( "Open Street Map" );
+    var osm = new OpenLayers.Layer.OSM ("Open Street Map");
     map.addLayer(osm);
 
     var display_photos = function (response) {
+        /* Parsing data */
         var json = new OpenLayers.Format.JSON();
         var data = json.read(response.responseText);
 
-        var markers = new OpenLayers.Layer.Markers( "People" );
+        /* Adding the marker */
+        var markers = new OpenLayers.Layer.Markers("People");
         map.addLayer(markers);
 
-        var size = new OpenLayers.Size(21, 25);
+        /* Icon size and position */
+        var size = new OpenLayers.Size(20, 20);
         var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
 
+        /* Time to insert people on the map */
         for (var x in data) {
             var icon = new OpenLayers.Icon(data[x].sender_avatar, size, offset);
             var location = new OpenLayers.LonLat(
-                data[x].longitude,
-                data[x].latitude);
+                data[x].sender_longitude,
+                data[x].sender_latitude);
             var transform = location.transform(display_projection, projection);
             var marker = new OpenLayers.Marker(transform, icon);
             var display_popup = function (evt) {

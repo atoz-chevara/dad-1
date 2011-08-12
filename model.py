@@ -223,6 +223,14 @@ class Message(Document):
         paragraphs = [(u'<p>%s</p>' % i) for i in content.split('\n')]
         return Markup(u'\n'.join(paragraphs))
 
+    @property
+    def geolocation(self):
+        """This method decides the best data to be used as coordinates
+        to be shown on the map. The priority list is sender and then
+        image info.
+        """
+        return self.sender_geolocation or self.image_geolocation or None
+
     def thumb(self, size):
         """Returns a cached thumbnail (depending on the size). If it
         does not exist, _gen_thumb() is called to deliver the image.

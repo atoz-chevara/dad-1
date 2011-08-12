@@ -60,14 +60,6 @@
             ' / ' + currentArray.length + ' ' + title + '</span>';
     };
 
-    $("a[rel=group]").fancybox({
-        'transitionIn'  : 'none',
-        'transitionOut' : 'none',
-        'titlePosition' : 'over',
-        'titleFormat'   : title_format,
-        'type' : 'image'
-    });
-
     /* Setting up `identi.ca' box */
     $('#identica_search').liveTwitter(
         '#thxdebian',

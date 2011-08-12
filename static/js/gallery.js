@@ -22,7 +22,7 @@ var title_format = function(title, currentArray, currentIndex, currentOpts){
         ' / ' + currentArray.length + ' ' + title + '</span>';
 };
 
-$("a[rel=group]").fancybox({
+$("a.group").fancybox({
     'transitionIn'  : 'none',
     'transitionOut' : 'none',
     'titlePosition' : 'over',

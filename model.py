@@ -239,9 +239,17 @@ class Message(Document):
         base = self.to_mongo().copy()
         for key in '_cls', '_id', '_types', 'image', 'thumbs', 'sender_email':
             del base[key]
-        base['longitude'] = self.geolocation and self.geolocation[0]
-        base['latitude'] = self.geolocation and self.geolocation[1]
-        base['date'] = base['date'].isoformat()
+
+        # Readding some important fields that needed to be converted
+        # before being added to a JSON object.
         base['id'] = str(self.id)
+        base['date'] = base['date'].isoformat()
+
+        # Adding geolocation info to both sender and image
+        base['image_longitude'] = self.geolocation and self.geolocation[0]
+        base['image_latitude'] = self.geolocation and self.geolocation[1]
+
+        # Adding image info
         base['image_url'] = url_for('image', iid=self.id, size='800x600')
+        base['thumb_url'] = url_for('image', iid=self.id, size='80x80')
         return base

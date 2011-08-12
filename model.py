@@ -278,6 +278,8 @@ class Message(Document):
             self.sender_geolocation[1]
 
         # Adding image info
-        base['image_url'] = url_for('image', iid=self.id, size='800x600')
-        base['thumb_url'] = url_for('image', iid=self.id, size='80x80')
+        base['image_url'] = self.has_image and \
+            url_for('image', iid=self.id, size='800x600') or ''
+        base['thumb_url'] = self.has_image and \
+            url_for('image', iid=self.id, size='80x80') or ''
         return base

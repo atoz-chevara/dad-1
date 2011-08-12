@@ -110,7 +110,7 @@ def process_image(url):
 
         longi = data['long']
         longi = float(longi[0] + longi[1] / 60 + longi[2] / 3600)
-        if data['longref'] == 'S':
+        if data['longref'] == 'W':
             longi = -longi
 
         # Saving the result

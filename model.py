@@ -114,7 +114,7 @@ def process_image(url):
             longi = -longi
 
         # Saving the result
-        result['geolocation'] = (lat, longi)
+        result['geolocation'] = (longi, lat)
 
     return result
 
@@ -160,8 +160,8 @@ class Message(Document):
             build_gravatar(vals['email'])
         if vals.get('latitude') and vals.get('longitude'):
             message.sender_geolocation = (
-                float(vals['latitude']),
-                float(vals['longitude']))
+                float(vals['longitude']),
+                float(vals['latitude']))
 
         # Finding tags and packages in the message content
         message.content = escape(vals['message'])

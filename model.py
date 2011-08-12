@@ -129,6 +129,7 @@ class Message(Document):
     sender_email = EmailField()
     sender_website = StringField()
     sender_avatar = StringField()
+    sender_geolocation = GeoPointField()
 
     # Message itself and content found inside it through the `#' and `:'
     # symbols.
@@ -142,7 +143,7 @@ class Message(Document):
     # Image specific fields
     image = FileField()
     thumbs = DictField()
-    geolocation = GeoPointField()
+    image_geolocation = GeoPointField()
 
     @staticmethod
     def from_request(request):
@@ -157,6 +158,10 @@ class Message(Document):
         message.sender_website = vals['url']
         message.sender_avatar = vals['avatar'] or \
             build_gravatar(vals['email'])
+        if vals.get('latitude') and vals.get('longitude'):
+            message.sender_geolocation = (
+                float(vals['latitude']),
+                float(vals['longitude']))
 
         # Finding tags and packages in the message content
         message.content = escape(vals['message'])
@@ -166,7 +171,7 @@ class Message(Document):
         # Filling out image attribute
         image_data = process_image(vals['image'])
         message.image = image_data['image']
-        message.geolocation = image_data['geolocation']
+        message.image_geolocation = image_data['geolocation']
 
         return message
 
@@ -183,7 +188,9 @@ class Message(Document):
         """A queryset manager that lists only messages with geolocation
         information.
         """
-        return queryset(__raw__={'$where': 'this.geolocation !== null'})
+        return queryset(__raw__={
+                '$where': 'this.sender_geolocation !== null || \
+                           this.image_geolocation !== null'})
 
     @property
     def has_image(self):
@@ -246,8 +253,14 @@ class Message(Document):
         base['date'] = base['date'].isoformat()
 
         # Adding geolocation info to both sender and image
-        base['image_longitude'] = self.geolocation and self.geolocation[0]
-        base['image_latitude'] = self.geolocation and self.geolocation[1]
+        base['image_longitude'] = self.image_geolocation and \
+            self.image_geolocation[0]
+        base['image_latitude'] = self.image_geolocation and \
+            self.image_geolocation[1]
+        base['sender_longitude'] = self.sender_geolocation and \
+            self.sender_geolocation[0]
+        base['sender_latitude'] = self.sender_geolocation and \
+            self.sender_geolocation[1]
 
         # Adding image info
         base['image_url'] = url_for('image', iid=self.id, size='800x600')

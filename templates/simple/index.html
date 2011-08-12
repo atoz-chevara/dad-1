@@ -71,6 +71,8 @@
 </div>
 
 <form id="thanks" method="post" action="{{ url_for('message') }}">
+  <input type="hidden" id="latitude" name="latitude" value="">
+  <input type="hidden" id="longitude" name="longitude" value="">
   <a name="form"></a>
   <h3>Your Message</h3>
   <div class="errMsg">

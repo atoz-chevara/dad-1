@@ -102,4 +102,17 @@
             $('#email').change();
         }
     });
+
+
+    /* Trying to catch the geolocation info from the browser through an
+     * HTML5 API */
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (pos) {
+            $('#latitude').val(pos.coords.latitude);
+            $('#longitude').val(pos.coords.longitude);
+        }, function () {
+
+        });
+    }
+
 }).call(this);

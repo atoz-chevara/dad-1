@@ -16,22 +16,22 @@
 
 (function() {
     $('form#thanks').submit(function(evt) {
-        var form, params;
         evt.preventDefault();
-        form = $(this);
-        params = {
+        var form = $(this);
+        var data = {};
+
+        $(this.elements).each(function (key, val) {
+            var $field = $(val);
+            var name = $field.attr('name');
+            if (name !== undefined) {
+                data[name] = $field.val();
+            }
+        });
+        var params = {
             type: 'post',
             url: form.attr('action'),
             dataType: 'json',
-            data: {
-                name: $('#name').val(),
-                email: $('#email').val(),
-                url: $('#url').val(),
-                avatar: $('#avatar').val(),
-                message: $('#message').val(),
-                image: $('#image').val(),
-                team: $('#team').val()
-            },
+            data: data,
             success: function(data) {
                 if (data.status === 'error') {
                     $('.successMsg').hide();

@@ -1,0 +1,11 @@
+{
+    "css": {
+        "__base__": "../static/css",
+        "__all__": ["style"],
+        "about": [],
+        "gallery": ["index", "gallery"],
+        "help": ["help"],
+        "index": ["../js/fancybox/jquery.fancybox.css", "index"],
+        "messages": ["../js/fancybox/jquery.fancybox.css", "messages"]
+    }
+}

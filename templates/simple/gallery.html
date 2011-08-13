@@ -1,7 +1,6 @@
 {% extends 'simple/layout.html' %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
 <link rel="stylesheet"
       href="{{ url_for('static', filename='js/fancybox/jquery.fancybox.css') }}">
@@ -50,7 +49,7 @@
   </li>
 </script>
 
-<nav id="nav">
+<ul id="nav">
   <li class="prev">
     {% if slideshow.previous %}
     <a href="{{ url_for('gallery') }}?p={{ slideshow.previous }}">
@@ -60,7 +59,7 @@
   </li>
   <li class="current">
     {% if slideshow.previous or slideshow.next %}
-    <em>#{{ slideshow.current }}</em>
+    <em>#{{ slideshow.current }}/{{ slideshow.pagecount }}</em>
     {% endif %}
   </li>
   <li class="next">
@@ -70,7 +69,7 @@
     </a>
     {% endif %}
   </li>
-</nav>
+</ul>
 
 <ul id="slideshow">
   {% for msg in slideshow.collection %}

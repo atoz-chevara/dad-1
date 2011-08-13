@@ -1,5 +1,6 @@
 /**
     Copyright (C) 2011 Marcelo Jorge Vieira <metal@alucinados.com>
+    Copyright (C) 2011 Lincoln de Sousa <lincoln@comum.org>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
@@ -49,8 +50,12 @@ function update() {
             $el.appendTo($ul);
         });
 
-        /* Setting up nav commands */
-        $('li.current em', $nav).html('#' + page);
+        /* --- Setting up nav commands -- */
+        /* Calculating bettter marging position for arrows */
+        var marginTop = data.collection.length / 6 * 70;
+
+        $('li.current em', $nav).html('#' + page + '/' + data.pagecount);
+        $('li.next, li.prev', $nav).css('margin-top', marginTop + 'px');
         $('li.prev', $nav).html('');
         if (data.previous)
             $('li.prev', $nav).append(
@@ -64,7 +69,6 @@ function update() {
                     .html('Next Page')
                     .attr('href', '#' + data.next));
 
-
         initFancyBox();
     });
 }
@@ -74,4 +78,3 @@ $(window).hashchange(function () {
 });
 
 update();
-initFancyBox();

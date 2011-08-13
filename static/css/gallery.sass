@@ -3,13 +3,55 @@ body.gallery
 
 h2.title
   :color white
+  :text-shadow 3px 3px 3px #666
+
+body.gallery #content
+  :min-height 380px
+
+body.gallery #nav
+  :width 960px
+  :display block
+  :position absolute
+  :height 0
+  li
+    :width 60px
+    :height 74px
+    :float left
+    :overflow hidden
+    a
+      :display block
+      :opacity 0.5
+      :padding-top 74px
+      :background url(../imgs/arrows.png) no-repeat top right
+    a:hover
+      :opacity 0.9
+  li.current
+    :text-align center
+    :width 960px
+    :color #999
+    :text-shadow 2px 2px 2px #555
+    :font-family 'Leckerli One'
+    :font-size 35px
+    :margin-top -40px
+  li.prev
+    :margin-left -75px
+    a
+      :background-position top left
+  li.next
+    :float right
+    :margin-right -75px
 
 body.gallery #slideshow
-  :padding 0
   :color #fff
   li
+    :float left
+    :background #000
+    :height 90px
+    :width 120px
     :margin 20px 20px 0 0
     :padding 10px 10px 45px 10px
+  img
+    :width 120px
   div.sender
     :margin 5px 0
     :font-size x-small

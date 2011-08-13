@@ -22,10 +22,20 @@ import conf
 app = Flask(__name__)
 
 
-def paginate():
+def paginate(collection, maxperpage=conf.GALLERY_MAX_PERPAGE):
     page = int(request.values.get('p', 1))-1
-    maxperpage = conf.GALLERY_MAX_PERPAGE
-    return maxperpage * page, (maxperpage*page) + maxperpage
+    maxperpage = int(request.values.get('max', maxperpage))
+    count = float(collection.count())
+    skip = maxperpage * page
+    limit = maxperpage * page + maxperpage
+    return {
+        'collection': collection[skip:limit],
+        'count': count,
+        'previous': False if page == 0 else max(1, page),
+        'current': page+1,
+        'next': page+2 if count / maxperpage > page+1 else False,
+        }
+
 
 @app.route('/')
 def index():
@@ -34,8 +44,9 @@ def index():
 
 @app.route('/gallery')
 def gallery():
-    skip, limit = paginate()
-    return render_template('simple/gallery.html', slideshow=Message.slideshow[skip:limit])
+    return render_template(
+        'simple/gallery.html',
+        slideshow=paginate(Message.slideshow))
 
 
 @app.route('/messages')
@@ -78,15 +89,16 @@ def people_json():
 
 @app.route('/images.json')
 def images_json():
-    skip, limit = paginate()
-    return dumps([m.to_json() for m in Message.slideshow[skip:limit]])
+    objs = paginate(Message.slideshow)
+    objs['collection'] = [x.to_json() for x in objs['collection']]
+    return dumps(objs)
 
 
 @app.route('/messages.json')
 def messages_json():
-    skip, limit = paginate()
-    objs = Message.objects[skip:limit].order_by('-date')
-    return dumps([m.to_json() for m in objs])
+    objs = paginate(Message.objects.order_by('-date'))
+    objs['collection'] = [x.to_json() for x in objs['collection']]
+    return dumps(objs)
 
 
 @app.route('/messages/<mid>.json')

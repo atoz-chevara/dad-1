@@ -79,7 +79,7 @@ function processResources(ext, resources, processor) {
                 files = generic.concat(files);
             }
             if (files.length > 0) {
-                var name = key + '.generated.' + ext;
+                var name = '_' + key + '.' + ext;
                 fs.writeFile(
                     path.resolve(path.join(base, name)),
                     processor(base, files));

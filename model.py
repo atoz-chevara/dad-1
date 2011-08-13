@@ -277,6 +277,7 @@ class Message(Document):
         base['date'] = base['date'].isoformat()
 
         # Adding geolocation info to both sender and image
+        base['geolocation'] = self.geolocation
         base['image_longitude'] = self.image_geolocation and \
             self.image_geolocation[0]
         base['image_latitude'] = self.image_geolocation and \

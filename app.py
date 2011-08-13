@@ -13,6 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from math import ceil
 from flask import Flask, Response, render_template, request, abort
 from model import Message
 from mongoengine import ValidationError
@@ -26,14 +27,16 @@ def paginate(collection, maxperpage=conf.GALLERY_MAX_PERPAGE):
     page = int(request.values.get('p', 1))-1
     maxperpage = int(request.values.get('max', maxperpage))
     count = float(collection.count())
+    pagecount = int(ceil(count / maxperpage))
     skip = maxperpage * page
     limit = maxperpage * page + maxperpage
     return {
         'collection': collection[skip:limit],
         'count': count,
+        'pagecount': pagecount,
         'previous': False if page == 0 else max(1, page),
         'current': page+1,
-        'next': page+2 if count / maxperpage > page+1 else False,
+        'next': page+2 if pagecount > page+1 else False,
         }
 
 

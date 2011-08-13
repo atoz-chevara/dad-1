@@ -84,7 +84,7 @@ function groupJsFiles(base, files) {
             group.push(uglify.gen_code(ast));
         }
     });
-    return group.join('');
+    return group.join(';');
 }
 
 /**

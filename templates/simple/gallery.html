@@ -16,6 +16,10 @@
 <script type="text/javascript"
         src="{{ url_for('static', filename='js/fancybox/jquery.fancybox.js') }}"></script>
 <script type="text/javascript"
+        src="{{ url_for('static', filename='js/template.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='js/jquery.hashchange.js') }}"></script>
+<script type="text/javascript"
         src="{{ url_for('static', filename='js/gallery.js') }}"></script>
 {% endblock %}
 
@@ -23,8 +27,49 @@
 {% block content %}
 <h2 class="title">Gallery</h2>
 
+<script type="text/html" id="itemTmpl">
+  <li>
+    <a class="group" href="<%= obj.image_url %>">
+      <img
+         alt="Pic taken by <%= obj.sender_name %>"
+         src="<%= obj.thumb_url %>">
+    </a>
+    <div class="sender">
+      by
+      <% if (obj.sender_website) { %><a href="<%= obj.formatted_website %>"><% } %>
+      <%= obj.sender_name %>
+      <% if (obj.sender_website) { %></a><% } %>
+    </div>
+    <% if (obj.geolocation) { %>
+    <div class="map">
+      <img
+         alt="Map pin"
+         src="{{ url_for('static', filename='imgs/ico-map.png') }}">
+    </div>
+    <% } %>
+  </li>
+</script>
+
+<nav id="nav">
+  <li class="prev">
+    {% if slideshow.previous %}
+    <a href="{{ url_for('gallery') }}?p={{ slideshow.previous }}">
+      Previous page
+    </a>
+    {% endif %}
+  </li>
+  <li class="current"><em>#{{ slideshow.current }}</em></li>
+  <li class="next">
+    {% if slideshow.next %}
+    <a href="{{ url_for('gallery') }}?p={{ slideshow.next }}">
+      Next page
+    </a>
+    {% endif %}
+  </li>
+</nav>
+
 <ul id="slideshow">
-  {% for msg in Message.slideshow[:8] %}
+  {% for msg in slideshow.collection %}
   <li>
     <a class="group" href="{{ url_for('image', iid=msg.id, size='800x600') }}">
       <img

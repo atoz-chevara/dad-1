@@ -17,15 +17,61 @@
     Boston, MA 02111-1307, USA.
 */
 
-var title_format = function(title, currentArray, currentIndex, currentOpts){
-    return '<span id="fancybox-title-over">Image ' +  (currentIndex + 1) +
-        ' / ' + currentArray.length + ' ' + title + '</span>';
-};
+function formatTitle(title, currentArray, currentIndex, currentOpts) {
+    var data = $(currentArray[currentIndex]).data('msg');
+    var content = [];
+    content.push('<span id="fancybox-title-over">');
+    content.push('Image by <strong>' + data.sender_name + '</strong>');
+    content.push('</span>');
+    return content.join('');
+}
 
-$("a.group").fancybox({
-    'transitionIn'  : 'none',
-    'transitionOut' : 'none',
-    'titlePosition' : 'over',
-    'titleFormat'   : title_format,
-    'type' : 'image'
+function initFancyBox() {
+    $("a[class=group]").fancybox({
+        'transitionIn'  : 'none',
+        'transitionOut' : 'none',
+        'titlePosition' : 'over',
+        'titleFormat'   : formatTitle,
+        'type' : 'image'
+    });
+}
+
+function update() {
+    var page = location.hash.replace(/\#/, '') || '1';
+    var $ul = $('#slideshow');
+    var $nav = $('#nav');
+
+    $ul.html('');
+    $.getJSON('../images.json', { p: page }, function (data) {
+        $(data.collection).each(function (index, msg) {
+            var $el = $(tmpl('itemTmpl', msg));
+            $('a', $el).data('msg', msg);
+            $el.appendTo($ul);
+        });
+
+        /* Setting up nav commands */
+        $('li.current em', $nav).html('#' + page);
+        $('li.prev', $nav).html('');
+        if (data.previous)
+            $('li.prev', $nav).append(
+                $('<a>')
+                    .html('Previous Page')
+                    .attr('href', '#' + data.previous));
+        $('li.next', $nav).html('');
+        if (data.next)
+            $('li.next', $nav).append(
+                $('<a>')
+                    .html('Next Page')
+                    .attr('href', '#' + data.next));
+
+
+        initFancyBox();
+    });
+}
+
+$(window).hashchange(function () {
+    update();
 });
+
+update();
+initFancyBox();

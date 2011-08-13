@@ -214,7 +214,7 @@ class Message(Document):
         """Returns the content separated in paragraphs. The string that
         creates a new paragraph is the '\n'.
         """
-        content = self.content
+        content = self.content.replace('\n\n', '\n')
         for i in self.tags:
             tag = u'#%s' % i
             content = content.replace(tag, TAG_URL_PATTERN % {'n': i})

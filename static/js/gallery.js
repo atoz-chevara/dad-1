@@ -22,13 +22,14 @@ function formatTitle(title, currentArray, currentIndex, currentOpts) {
     var data = $(currentArray[currentIndex]).data('msg');
     var content = [];
     content.push('<span id="fancybox-title-over">');
-    content.push('Image by <strong>' + data.sender_name + '</strong>');
+    content.push('Image by <strong>' + data.sender_name + '</strong> ');
+    content.push('&mdash; ' + (currentIndex + 1) + ' / ' + currentArray.length);
     content.push('</span>');
     return content.join('');
 }
 
 function initFancyBox() {
-    $("a[class=group]").fancybox({
+    $("a.group").attr({ rel: 'group' }).fancybox({
         'transitionIn'  : 'none',
         'transitionOut' : 'none',
         'titlePosition' : 'over',

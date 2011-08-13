@@ -15,6 +15,9 @@
  */
 
 (function() {
+    /* URL for the default avatar in message form. */
+    var defaultGravatar = 'http://www.gravatar.com/avatar/?s=48&d=mm';
+
     $('form#thanks').submit(function(evt) {
         evt.preventDefault();
         var form = $(this);
@@ -43,6 +46,7 @@
                 } else {
                     $('.errMsg').hide();
                     $('.successMsg').show();
+                    $('#gravatar').attr('src', defaultGravatar);
                     form[0].reset();
                     return setTimeout(function() {
                         return $('.successMsg').hide(400);
@@ -62,7 +66,6 @@
 
     /* Setting up user avatar url after filling email (gravatar) or
      * avatar url  */
-    var defaultGravatar = 'http://www.gravatar.com/avatar/?s=48&d=mm';
     $('#email').change(function () {
         if ($('#avatar').val() === '' &&
             $('#email').val() === '' &&

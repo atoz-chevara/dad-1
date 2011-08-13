@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from flask import Flask, Response, render_template, request
+from flask import Flask, Response, render_template, request, abort
 from model import Message
 from mongoengine import ValidationError
 from json import dumps, loads
@@ -22,6 +22,11 @@ import conf
 app = Flask(__name__)
 
 
+def paginate():
+    page = int(request.values.get('p', 1))-1
+    maxperpage = conf.GALLERY_MAX_PERPAGE
+    return maxperpage * page, (maxperpage*page) + maxperpage
+
 @app.route('/')
 def index():
     return render_template('simple/index.html', Message=Message)
@@ -29,7 +34,8 @@ def index():
 
 @app.route('/gallery')
 def gallery():
-    return render_template('simple/gallery.html', Message=Message)
+    skip, limit = paginate()
+    return render_template('simple/gallery.html', slideshow=Message.slideshow[skip:limit])
 
 
 @app.route('/messages')
@@ -68,6 +74,28 @@ def message():
 @app.route('/people.json')
 def people_json():
     return dumps([msg.to_json() for msg in Message.geolocations])
+
+
+@app.route('/images.json')
+def images_json():
+    skip, limit = paginate()
+    return dumps([m.to_json() for m in Message.slideshow[skip:limit]])
+
+
+@app.route('/messages.json')
+def messages_json():
+    skip, limit = paginate()
+    objs = Message.objects[skip:limit].order_by('-date')
+    return dumps([m.to_json() for m in objs])
+
+
+@app.route('/messages/<mid>.json')
+def message_json(mid):
+    try:
+        obj = Message.objects.with_id(mid) or abort(404)
+    except ValidationError:
+        abort(404)
+    return dumps(obj.to_json())
 
 
 if __name__ == '__main__':

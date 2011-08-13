@@ -58,7 +58,11 @@
     </a>
     {% endif %}
   </li>
-  <li class="current"><em>#{{ slideshow.current }}</em></li>
+  <li class="current">
+    {% if slideshow.previous or slideshow.next %}
+    <em>#{{ slideshow.current }}</em>
+    {% endif %}
+  </li>
   <li class="next">
     {% if slideshow.next %}
     <a href="{{ url_for('gallery') }}?p={{ slideshow.next }}">

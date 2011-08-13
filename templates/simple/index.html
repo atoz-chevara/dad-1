@@ -1,34 +1,12 @@
 {% extends 'simple/layout.html' %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-<link rel="stylesheet"
-      href="{{ url_for('static', filename='js/fancybox/jquery.fancybox.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/_index.css') }}">
 {% endblock %}
 
 {% block javascripts %}
 <script type="text/javascript"
-        src="{{ url_for('static', filename='js/openlayers/OpenLayers.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='js/mousewheel/jquery.mousewheel.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='js/easing/jquery.easing.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='js/fancybox/jquery.fancybox.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='js/jquery.livetwitter.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='js/jquery.md5.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='js/map.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='js/jquery.hashchange.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='js/template.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='js/gallery.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static', filename='js/index.js') }}"></script>
+        src="{{ url_for('static', filename='js/_index.js') }}"></script>
 {% endblock %}
 
 {% block content %}

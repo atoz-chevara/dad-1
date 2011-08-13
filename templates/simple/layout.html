@@ -2,8 +2,6 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/awesome.css') }}">
     {% block extra_head %}{% endblock %}
     <title>Thank you Debian</title>
   </head>
@@ -24,8 +22,6 @@
       {% block content %}{% endblock %}
     </div>
 
-    <script src="{{ url_for('static', filename='js/jquery.js') }}"
-            type="text/javascript"></script>
     {% block javascripts %}
     {% endblock %}
     <br class="clear">

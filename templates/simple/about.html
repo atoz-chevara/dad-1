@@ -1,5 +1,9 @@
 {% extends 'simple/layout.html' %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/_about.css') }}">
+{% endblock %}
+
 {% block content %}
 <h2 class="title">About this site</h2>
 

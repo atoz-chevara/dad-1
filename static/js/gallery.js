@@ -37,15 +37,20 @@ function initFancyBox() {
     });
 }
 
-function update() {
+function setupSlideshow(numImgs) {
     var page = location.hash.replace(/\#/, '') || '1';
     var $ul = $('#slideshow');
     var $nav = $('#nav');
+    var url = '../images.json';
+
+    if (numImgs !== undefined) {
+        url += '?max=' + numImgs;
+    }
 
     $ul.html('');
-    $.getJSON('../images.json', { p: page }, function (data) {
+    $.getJSON(url, { p: page }, function (data) {
         $(data.collection).each(function (index, msg) {
-            var $el = $(tmpl('itemTmpl', msg));
+            var $el = $(tmpl('galleryItemTmpl', msg));
             $('a', $el).data('msg', msg);
             $el.appendTo($ul);
         });
@@ -74,7 +79,5 @@ function update() {
 }
 
 $(window).hashchange(function () {
-    update();
+    setupSlideshow();
 });
-
-update();

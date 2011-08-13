@@ -47,6 +47,7 @@
                     $('.errMsg').hide();
                     $('.successMsg').show();
                     $('#gravatar').attr('src', defaultGravatar);
+                    setupSlideshow(8);
                     form[0].reset();
                     return setTimeout(function() {
                         return $('.successMsg').hide(400);

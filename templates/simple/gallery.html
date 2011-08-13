@@ -20,13 +20,14 @@
         src="{{ url_for('static', filename='js/jquery.hashchange.js') }}"></script>
 <script type="text/javascript"
         src="{{ url_for('static', filename='js/gallery.js') }}"></script>
+<script>setupSlideshow();</script>
 {% endblock %}
 
 
 {% block content %}
 <h2 class="title">Gallery</h2>
 
-<script type="text/html" id="itemTmpl">
+<script type="text/html" id="galleryItemTmpl">
   <li>
     <a class="group" href="<%= obj.image_url %>">
       <img

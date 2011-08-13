@@ -22,9 +22,14 @@
 <script type="text/javascript"
         src="{{ url_for('static', filename='js/map.js') }}"></script>
 <script type="text/javascript"
+        src="{{ url_for('static', filename='js/jquery.hashchange.js') }}"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='js/template.js') }}"></script>
+<script type="text/javascript"
         src="{{ url_for('static', filename='js/gallery.js') }}"></script>
 <script type="text/javascript"
         src="{{ url_for('static', filename='js/index.js') }}"></script>
+<script>setupSlideshow(8);</script>
 {% endblock %}
 
 {% block content %}
@@ -58,8 +63,18 @@
   {% endfor %}
 </ul>
 
-<div id="slideshow" class="w960">
-  <ul>
+<script type="text/html" id="galleryItemTmpl">
+  <li>
+    <a class="group" href="<%= obj.image_url %>">
+      <img
+         alt="Pic taken by <%= obj.sender_name %>"
+         src="<%= obj.thumb_url %>">
+    </a>
+  </li>
+</script>
+
+<div class="w960">
+  <ul id="slideshow">
     {% for msg in Message.slideshow[:8] %}
     <li>
       <a class="group" href="{{ url_for('image', iid=msg.id, size='800x600') }}">

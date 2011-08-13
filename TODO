@@ -9,7 +9,6 @@
    - Save the Team choosen by the user in the db
    - Update the stream with the just added message
    - Update the map if we find geostuff
-   - Update the gallery if message has image
 
  * Gallery
    - Show the number of pics available?

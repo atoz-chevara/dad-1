@@ -19,8 +19,8 @@
 var fs = require('fs'),
     path = require('path'),
     sass = require('sass'),
-    cleancss = require('clean-css');
-
+    cleancss = require('clean-css'),
+    uglifyjs = require("uglify-js");
 
 /**
  * Parses a file that holds definitions about which resources this
@@ -45,7 +45,6 @@ function parseDefinitionFile(filePath, next) {
  * This function convert sass files to css, minify css and group files
  *
  * @param {String} base is the base directory of css (or sass) files
- *
  * @param {Array} files is a list of css files that should be grouped
  *  together
  */
@@ -65,6 +64,28 @@ function groupCssFiles(base, files) {
     return group.join('');
 }
 
+
+/**
+ * This function minify and group js files
+ *
+ * @param {String} base is the base directory of javascript files
+ * @param {Array} files is a list of js files that should be grouped
+ *  together
+ */
+function groupJsFiles(base, files) {
+    var group = [];
+    files.forEach(function (name) {
+        var filePath = path.normalize(path.resolve(base, name));
+        var content = fs.readFileSync(filePath).toString();
+        with (uglifyjs) {
+            var ast = parser.parse(content);
+            ast = uglify.ast_mangle(ast);
+            ast = uglify.ast_squeeze(ast);
+            group.push(uglify.gen_code(ast));
+        }
+    });
+    return group.join('');
+}
 
 /**
  * A generic function to call different resource processors
@@ -91,6 +112,7 @@ function processResources(ext, resources, processor) {
 
 function main(resources) {
     processResources('css', resources.css, groupCssFiles);
+    processResources('js', resources.js, groupJsFiles);
 }
 
 

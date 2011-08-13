@@ -7,5 +7,26 @@
         "help": ["help"],
         "index": ["../js/fancybox/jquery.fancybox.css", "index"],
         "messages": ["../js/fancybox/jquery.fancybox.css", "messages"]
+    },
+
+    "js": {
+        "__base__": "../static/js",
+        "index": [
+            "openlayers/OpenLayers.js",
+            "mousewheel/jquery.mousewheel.js",
+            "easing/jquery.easing.js",
+            "fancybox/jquery.fancybox.js",
+            "jquery.livetwitter.js",
+            "jquery.md5.js",
+            "map.js",
+            "gallery.js",
+            "index.js"
+        ],
+        "gallery": [
+            "mousewheel/jquery.mousewheel.js",
+            "easing/jquery.easing.js",
+            "fancybox/jquery.fancybox.js",
+            "gallery.js"
+        ]
     }
 }

@@ -85,6 +85,16 @@ def message():
     return dumps({'status': 'ok'})
 
 
+@app.route('/moderate', methods=('GET', 'POST'))
+def moderate():
+    if request.method == 'POST':
+        msg = Message.objects.with_id(request.values['msgid'])
+        msg.delete()
+    return render_template(
+        'simple/moderate.html',
+        messages=paginate(Message.objects.order_by('-date')))
+
+
 @app.route('/people.json')
 def people_json():
     return dumps([msg.to_json() for msg in Message.geolocations])

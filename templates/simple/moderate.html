@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
+    <title></title>
+    <style type="text/css">
+      body { width:960px; margin:0 auto; }
+      ul { padding:0; }
+
+      #nav { display:block; padding:30px 0; }
+      #nav ul {  }
+      #nav li { display:block; float:left; margin-right:10px;  }
+
+      #messages li { list-style:none; min-height:130px;
+                     border-bottom:dotted 1px green; margin-top:40px; }
+      #messages img { float:left; margin-right:10px; }
+      #message p { margin-left:140px; }
+    </style>
+  </head>
+
+  <body>
+    <h1>Moderation</h1>
+
+    <div id="nav">
+      <ul>
+        <li class="prev">
+          {% if messages.previous %}
+          <a href="{{ url_for('moderate') }}?p={{ messages.previous }}">
+            Previous page
+          </a>
+          {% endif %}
+        </li>
+        <li class="current">
+          {% if messages.previous or messages.next %}
+          <em>#{{ messages.current }}/{{ messages.pagecount }}</em>
+          {% endif %}
+        </li>
+        <li class="next">
+          {% if messages.next %}
+          <a href="{{ url_for('moderate') }}?p={{ messages.next }}">
+            Next page
+          </a>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+
+    <ul id="messages">
+      {% for msg in messages.collection %}
+      <li>
+        <strong>{{ msg.id }}</strong>
+        {% if msg.has_image %}
+        <a href="{{ url_for('image', iid=msg.id, size='800x600') }}">
+          <img
+             width="120" height="90"
+             alt="Pic taken by {{ msg.sender_name }}"
+             class="rimg" src="{{ url_for('image', iid=msg.id, size='120x90') }}">
+        </a>
+        {% endif %}
+        {{ msg.formatted_content }}
+        <form class="remove" method="post"
+              action="{{ url_for('moderate') }}?{{ request.query_string }}">
+          <input type="hidden" name="msgid" value="{{ msg.id }}">
+          <p><input type="submit" value="Remove FOREVER!"></p>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+
+  </body>
+</html>

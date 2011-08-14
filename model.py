@@ -239,6 +239,8 @@ class Message(Document):
         """Returns the website with http://
         """
         website = self.sender_website
+        if not website:
+            return website
         if not website.startswith('http://'):
             website = website.replace(website, "http://%s" % website)
         return website

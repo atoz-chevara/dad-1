@@ -39,7 +39,8 @@ function initFancyBox() {
 }
 
 function setupSlideshow(numImgs) {
-    var page = location.hash.replace(/\#/, '') || '1';
+    var hash = location.hash;
+    var page = /^\#page\d/.test(hash) ? hash.replace(/\#page/, '') : '1';
     var $ul = $('#slideshow');
     var $nav = $('#nav');
     var url = '../images.json';
@@ -67,13 +68,13 @@ function setupSlideshow(numImgs) {
             $('li.prev', $nav).append(
                 $('<a>')
                     .html('Previous Page')
-                    .attr('href', '#' + data.previous));
+                    .attr('href', '#page' + data.previous));
         $('li.next', $nav).html('');
         if (data.next)
             $('li.next', $nav).append(
                 $('<a>')
                     .html('Next Page')
-                    .attr('href', '#' + data.next));
+                    .attr('href', '#page' + data.next));
 
         initFancyBox();
     });

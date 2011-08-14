@@ -3,9 +3,9 @@
         "__base__": "../static/css",
         "__all__": ["style"],
         "about": [],
-        "gallery": ["index", "gallery"],
         "help": ["help"],
-        "index": ["../js/fancybox/jquery.fancybox.css", "index"],
+        "index": ["../js/fancybox/jquery.fancybox.css", "awesome", "index"],
+        "gallery": ["../js/fancybox/jquery.fancybox.css", "gallery"],
         "messages": ["../js/fancybox/jquery.fancybox.css", "messages"]
     },
 
@@ -14,19 +14,19 @@
         "index": [
             "jquery.js",
             "openlayers/OpenLayers.js",
-            "mousewheel/jquery.mousewheel.js",
-            "easing/jquery.easing.js",
             "fancybox/jquery.fancybox.js",
             "jquery.livetwitter.js",
             "jquery.md5.js",
             "map.js",
+            "template.js",
+            "jquery.hashchange.js",
             "gallery.js",
             "index.js"
         ],
         "gallery": [
             "jquery.js",
-            "mousewheel/jquery.mousewheel.js",
-            "easing/jquery.easing.js",
+            "template.js",
+            "jquery.hashchange.js",
             "fancybox/jquery.fancybox.js",
             "gallery.js"
         ]

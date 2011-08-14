@@ -35,6 +35,33 @@
 {% block content %}
 <div id="map"></div>
 
+<script type="text/html" id="streamItemTmpl">
+  <% console.debug(obj); %>
+  <li <% if (obj.has_image) { %>class="haveImage"<% } %>>
+    <% if (obj.sender_website) { %><a href="<%= obj.formatted_website %>"><% } %>
+      <img
+         src="<%= obj.sender_avatar %>"
+         alt="<%= obj.formatted_username %>"
+         class="avatar">
+      <% if (obj.sender_website) { %></a><% } %>
+    <ul>
+      <% if (obj.has_image) { %>
+      <li class="img">
+        <img
+           alt="Pic taken by <%= obj.sender_name %>"
+           class="rimg" src="<%= obj.thumb_url %>">
+      </li>
+      <% } %>
+      <li class="name">
+        <% if (obj.sender_website) { %><a href="<%= obj.formatted_website %>"><% } %>
+          <%= obj.formatted_username %>
+          <% if (obj.sender_website) { %></a><% } %>
+      </li>
+      <li class="msg"><%= obj.formatted_content %></li>
+    </ul>
+  </li>
+</script>
+
 <ul id="stream">
   {% for msg in Message.objects[:3].order_by('-date') %}
   <li {% if msg.has_image %}class="haveImage"{% endif %}>

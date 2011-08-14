@@ -15,6 +15,23 @@
  */
 
 (function() {
+    /* Updates the stream making an async call to a JSON source in the
+     * server side. */
+    function updateStream() {
+        $.ajax({
+            type: 'get',
+            url: '../messages.json?max=3',
+            dataType: 'json',
+            success: function (data) {
+                $('#stream').html('');
+                $(data.collection).each(function (index, item) {
+                    var $el = $(tmpl('streamItemTmpl', item));
+                    $el.appendTo($('#stream'));
+                });
+            }
+        });
+    }
+
     /* URL for the default avatar in message form. */
     var defaultGravatar = 'http://www.gravatar.com/avatar/?s=48&d=mm';
 
@@ -48,6 +65,7 @@
                     $('.successMsg').show();
                     $('#gravatar').attr('src', defaultGravatar);
                     setupSlideshow(8);
+                    updateStream();
                     form[0].reset();
                     return setTimeout(function() {
                         return $('.successMsg').hide(400);

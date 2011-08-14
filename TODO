@@ -7,7 +7,6 @@
 
  * Message form
    - Save the Team choosen by the user in the db
-   - Update the map if we find geostuff
 
  * Gallery
    - Show the number of pics available?

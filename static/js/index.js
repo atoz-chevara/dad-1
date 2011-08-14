@@ -32,6 +32,10 @@
         });
     }
 
+    /* Setting up map stuff */
+    var mapInstance = setupMap();
+    updateMap(mapInstance);
+
     /* URL for the default avatar in message form. */
     var defaultGravatar = 'http://www.gravatar.com/avatar/?s=48&d=mm';
 
@@ -66,6 +70,7 @@
                     $('#gravatar').attr('src', defaultGravatar);
                     setupSlideshow(8);
                     updateStream();
+                    updateMap(mapInstance);
                     form[0].reset();
                     return setTimeout(function() {
                         return $('.successMsg').hide(400);

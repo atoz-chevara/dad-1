@@ -17,72 +17,74 @@
     Boston, MA 02111-1307, USA.
 */
 
-var initial_lon = -1800244.88985;
-var initial_lat = 1878516.4068;
-var initial_zoom = 2;
-var zoom_levels = 20;
-var projection = new OpenLayers.Projection("EPSG:900913");
-var display_projection = new OpenLayers.Projection("EPSG:4326");
+(function (ctx) {
+    var initial_lon = -1800244.88985;
+    var initial_lat = 1878516.4068;
+    var initial_zoom = 2;
+    var zoom_levels = 20;
+    var projection = new OpenLayers.Projection("EPSG:900913");
+    var display_projection = new OpenLayers.Projection("EPSG:4326");
 
-function map_init() {
-    var map = new OpenLayers.Map (
-        'map', {
-            controls: [
-                new OpenLayers.Control.Navigation(),
-                new OpenLayers.Control.PanZoomBar(),
-                new OpenLayers.Control.ScaleLine(),
-                new OpenLayers.Control.Permalink('Permalink'),
-                new OpenLayers.Control.MousePosition()
-            ],
-            numZoomLevels: zoom_levels
+    function setupMap() {
+        var map = new OpenLayers.Map (
+            'map', {
+                controls: [
+                    new OpenLayers.Control.Navigation(),
+                    new OpenLayers.Control.PanZoomBar(),
+                    new OpenLayers.Control.ScaleLine(),
+                    new OpenLayers.Control.Permalink('Permalink'),
+                    new OpenLayers.Control.MousePosition()
+                ],
+                numZoomLevels: zoom_levels
+            });
+
+        // OSM layer
+        var osm = new OpenLayers.Layer.OSM ("Open Street Map");
+        map.addLayer(osm);
+
+        // Initial position
+        var initial_location = new OpenLayers.LonLat(initial_lon,initial_lat);
+        var initial_transform = initial_location.transform(
+            display_projection,
+            projection);
+        map.setCenter(initial_transform, initial_zoom);
+        return map;
+    }
+
+    function updateMap(map) {
+        var url = "/people.json";
+        var parameters = {};
+        OpenLayers.loadURL(url, parameters, this,  function (response) {
+            /* Parsing data */
+            var json = new OpenLayers.Format.JSON();
+            var data = json.read(response.responseText);
+
+            /* Adding the marker */
+            var markers = new OpenLayers.Layer.Markers("People");
+            map.addLayer(markers);
+
+            /* Icon size and position */
+            var size = new OpenLayers.Size(20, 20);
+            var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+
+            /* Time to insert people on the map */
+            for (var x in data) {
+                var icon = new OpenLayers.Icon(data[x].sender_avatar, size, offset);
+                var location = new OpenLayers.LonLat(
+                    data[x].sender_longitude,
+                    data[x].sender_latitude);
+                var transform = location.transform(display_projection, projection);
+                var marker = new OpenLayers.Marker(transform, icon);
+                var display_popup = function (evt) {
+                    alert( data[x].sender_name );
+                    OpenLayers.Event.stop(evt);
+                };
+                marker.events.register('mousedown', marker, display_popup);
+                markers.addMarker(marker);
+            }
         });
+    }
 
-    // OSM layer
-    var osm = new OpenLayers.Layer.OSM ("Open Street Map");
-    map.addLayer(osm);
-
-    var display_photos = function (response) {
-        /* Parsing data */
-        var json = new OpenLayers.Format.JSON();
-        var data = json.read(response.responseText);
-
-        /* Adding the marker */
-        var markers = new OpenLayers.Layer.Markers("People");
-        map.addLayer(markers);
-
-        /* Icon size and position */
-        var size = new OpenLayers.Size(20, 20);
-        var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-
-        /* Time to insert people on the map */
-        for (var x in data) {
-            var icon = new OpenLayers.Icon(data[x].sender_avatar, size, offset);
-            var location = new OpenLayers.LonLat(
-                data[x].sender_longitude,
-                data[x].sender_latitude);
-            var transform = location.transform(display_projection, projection);
-            var marker = new OpenLayers.Marker(transform, icon);
-            var display_popup = function (evt) {
-                alert( data[x].sender_name );
-                OpenLayers.Event.stop(evt);
-            };
-            marker.events.register('mousedown', marker, display_popup);
-            markers.addMarker(marker);
-        }
-    };
-
-    var url = "/people.json";
-    var parameters = {};
-    OpenLayers.loadURL(url, parameters, this, display_photos);
-
-    // Initial position
-    var initial_location = new OpenLayers.LonLat(initial_lon,initial_lat);
-    var initial_transform = initial_location.transform(
-        display_projection,
-        projection);
-    map.setCenter(initial_transform, initial_zoom);
-}
-
-$().ready(function () {
-    map_init();
-});
+    ctx.setupMap = setupMap;
+    ctx.updateMap = updateMap;
+})(this);

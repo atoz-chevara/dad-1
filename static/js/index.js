@@ -15,6 +15,9 @@
  */
 
 (function() {
+    /* Initializing fancybox (will catch the #slideshow element) */
+    initFancyBox();
+
     /* Updates the stream making an async call to a JSON source in the
      * server side. */
     function updateStream() {
@@ -127,5 +130,4 @@
 
         });
     }
-
 }).call(this);

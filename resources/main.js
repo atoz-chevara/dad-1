@@ -77,14 +77,13 @@ function groupJsFiles(base, files) {
     files.forEach(function (name) {
         var filePath = path.normalize(path.resolve(base, name));
         var content = fs.readFileSync(filePath).toString();
-        with (uglifyjs) {
-            var ast = parser.parse(content);
-            ast = uglify.ast_mangle(ast);
-            ast = uglify.ast_squeeze(ast);
-            group.push(uglify.gen_code(ast));
-        }
+        group.push(content);
     });
-    return group.join(';');
+
+    var ast = uglifyjs.parser.parse(group.join(';'));
+    ast = uglifyjs.uglify.ast_mangle(ast);
+    ast = uglifyjs.uglify.ast_squeeze(ast);
+    return uglifyjs.uglify.gen_code(ast);
 }
 
 /**

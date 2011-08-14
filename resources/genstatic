@@ -1,3 +1,4 @@
+#!/usr/bin/node
 /* -*- Mode: js2 -*-
  * Copyright (C) 2011  Lincoln de Sousa <lincoln@comum.org>
  *
@@ -21,24 +22,6 @@ var fs = require('fs'),
     sass = require('sass'),
     cleancss = require('clean-css'),
     uglifyjs = require("uglify-js");
-
-/**
- * Parses a file that holds definitions about which resources this
- * program should manage.
- *
- * @param {String} filePath is the path of the file to be processed.
- * @param {Function} next is a callback to be executed when the file is
- *  finally ready. It receives the JSON object loaded and parsed.
- */
-function parseDefinitionFile(filePath, next) {
-    fs.readFile(filePath, function (err, data) {
-        if (err) {
-            throw err;
-        } else {
-            next(JSON.parse(data));
-        }
-    });
-}
 
 
 /**
@@ -111,12 +94,44 @@ function processResources(ext, definition, processor) {
 }
 
 
-function main(resources) {
+function run(resources) {
     processResources('css', resources, groupCssFiles);
     processResources('js', resources, groupJsFiles);
 }
 
 
+/**
+ * Parses a file that holds definitions about which resources this
+ * program should manage.
+ *
+ * @param {String} filePath is the path of the file to be processed.
+ * @param {Function} next is a callback to be executed when the file is
+ *  finally ready. It receives the JSON object loaded and parsed.
+ */
+function parseDefinitionFile(filePath, extraParams, next) {
+    fs.readFile(filePath, function (err, data) {
+        if (err) {
+            throw err;
+        } else {
+            var obj = JSON.parse(data);
+
+            if (extraParams.staticdir !== undefined) {
+                obj.__staticdir__ = extraParams.staticdir;
+            }
+
+            if (extraParams.outputdir !== undefined) {
+                obj.__outputdir__ = extraParams.outputdir;
+            }
+
+            next(obj);
+        }
+    });
+}
+
+
 if (module == require.main) {
-    parseDefinitionFile('resources.json', main);
+    var argv = require('optimist')
+        .default('f', 'resources.json')
+        .argv;
+    parseDefinitionFile(argv.f, argv, run);
 }

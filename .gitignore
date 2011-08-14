@@ -1,5 +1,5 @@
 *~
 *.css
-/conf.py
+/dad/conf.py
 *.pyc
 _*.js

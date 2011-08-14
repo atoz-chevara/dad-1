@@ -69,8 +69,8 @@ function processDir(basePath, watch) {
 if (module == require.main) {
     var defaultBasePath = path.dirname(__filename);
     var defaultDirs = [
-        path.join(defaultBasePath, '..', 'static', 'css'),
-        path.join(defaultBasePath, '..', 'templates')
+        path.join(defaultBasePath, '..', 'dad', 'static', 'css'),
+        path.join(defaultBasePath, '..', 'dad', 'templates')
     ];
 
     var defaults = {

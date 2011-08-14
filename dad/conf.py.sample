@@ -33,7 +33,8 @@ GALLERY_MAX_PERPAGE = 12
 ENV = 'development'
 
 # Must point to the file that describes resources used by this app.
-RESOURCES_FILE = os.path.join(os.getcwd(), 'resources', 'resources.json')
+RESOURCES_FILE = os.path.join(
+    os.path.dirname(__file__), '..', 'resources.json')
 
 # If set to None, the `/static' path will be used instead. Use string
 # format to fill this var, just like it example:

@@ -74,7 +74,7 @@ def js(group):
     `group'.
     """
     if conf.ENV == 'production':
-        return prodresource('js', group)
+        return Markup(prodresource('js', group))
     return Markup(''.join(devresources('js', group)))
 
 
@@ -83,5 +83,5 @@ def css(group):
     `group'.
     """
     if conf.ENV == 'production':
-        return prodresource('css', group)
+        return Markup(prodresource('css', group))
     return Markup(''.join(devresources('css', group)))

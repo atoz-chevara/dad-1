@@ -1,12 +1,11 @@
 {% extends 'simple/layout.html' %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/_messages.css') }}">
+{{ registry.css('messages') }}
 {% endblock %}
 
 {% block javascripts %}
-<script type="text/javascript"
-        src="{{ url_for('static', filename='js/_gallery.js') }}"></script>
+{{ registry.js('gallery') }}
 <script>initFancyBox();</script>
 {% endblock %}
 

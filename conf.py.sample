@@ -1,3 +1,5 @@
+# -*- Mode: Python -*-
+#
 # Copyright (C) 2011  Lincoln de Sousa <lincoln@comum.org>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -13,6 +15,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+
 # MongoDB database name
 DATABASE_NAME = 'dad'
 
@@ -23,3 +27,18 @@ DEBUG = True
 
 # Application specific settings
 GALLERY_MAX_PERPAGE = 12
+
+# Development/Production configuration: possible values are for this var
+# are: 'development' or 'production'.
+ENV = 'development'
+
+# Must point to the file that describes resources used by this app.
+RESOURCES_FILE = os.path.join(os.getcwd(), 'resources', 'resources.json')
+
+# If set to None, the `/static' path will be used instead. Use string
+# format to fill this var, just like it example:
+#
+#  STATIC_URL = 'http://cdn.myexample.com/%s'
+#
+# The _only_ field will be filled by our resource registry properly.
+STATIC_URL = None

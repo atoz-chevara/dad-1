@@ -14,13 +14,23 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from math import ceil
-from flask import Flask, Response, render_template, request, abort
+from flask import Flask, Response, render_template as render, request, abort
 from model import Message
 from mongoengine import ValidationError
 from json import dumps, loads
+import registry
 import conf
 
 app = Flask(__name__)
+
+
+def render_template(name, **attrs):
+    """Alias used to update the dict with attrs passed to the _real_
+    template renderer function. Currently, we're only passing the
+    resource registry to all templates.
+    """
+    attrs.update({ 'registry': registry })
+    return render(name, **attrs)
 
 
 def paginate(collection, maxperpage=conf.GALLERY_MAX_PERPAGE):

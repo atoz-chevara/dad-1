@@ -1,12 +1,11 @@
 {% extends 'simple/layout.html' %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/_index.css') }}">
+{{ registry.css('index') }}
 {% endblock %}
 
 {% block javascripts %}
-<script type="text/javascript"
-        src="{{ url_for('static', filename='js/_index.js') }}"></script>
+{{ registry.js('index') }}
 {% endblock %}
 
 {% block content %}

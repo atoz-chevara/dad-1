@@ -1,34 +1,44 @@
 {
+    "__staticdir__": "../static",
+
     "css": {
-        "__base__": "../static/css",
-        "__all__": ["style"],
+        "__all__": ["css/style"],
         "about": [],
-        "help": ["help"],
-        "index": ["../js/fancybox/jquery.fancybox.css", "awesome", "index"],
-        "gallery": ["../js/fancybox/jquery.fancybox.css", "gallery"],
-        "messages": ["../js/fancybox/jquery.fancybox.css", "messages"]
+        "help": ["css/help"],
+        "index": [
+            "js/fancybox/jquery.fancybox.css",
+            "css/awesome",
+            "css/index"
+        ],
+        "gallery": [
+            "js/fancybox/jquery.fancybox.css",
+            "css/gallery"
+        ],
+        "messages": [
+            "js/fancybox/jquery.fancybox.css",
+            "css/messages"
+        ]
     },
 
     "js": {
-        "__base__": "../static/js",
         "index": [
-            "jquery.js",
-            "openlayers/OpenLayers.js",
-            "fancybox/jquery.fancybox.js",
-            "jquery.livetwitter.js",
-            "jquery.md5.js",
-            "map.js",
-            "template.js",
-            "jquery.hashchange.js",
-            "gallery.js",
-            "index.js"
+            "js/jquery.js",
+            "js/openlayers/OpenLayers.js",
+            "js/fancybox/jquery.fancybox.js",
+            "js/jquery.livetwitter.js",
+            "js/jquery.md5.js",
+            "js/map.js",
+            "js/template.js",
+            "js/jquery.hashchange.js",
+            "js/gallery.js",
+            "js/index.js"
         ],
         "gallery": [
-            "jquery.js",
-            "template.js",
-            "jquery.hashchange.js",
-            "fancybox/jquery.fancybox.js",
-            "gallery.js"
+            "js/jquery.js",
+            "js/template.js",
+            "js/jquery.hashchange.js",
+            "js/fancybox/jquery.fancybox.js",
+            "js/gallery.js"
         ]
     }
 }

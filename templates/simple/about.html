@@ -1,7 +1,7 @@
 {% extends 'simple/layout.html' %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/_about.css') }}">
+{{ registry.css('about') }}
 {% endblock %}
 
 {% block content %}

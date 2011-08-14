@@ -89,11 +89,12 @@ function groupJsFiles(base, files) {
 /**
  * A generic function to call different resource processors
  */
-function processResources(ext, resources, processor) {
+function processResources(ext, definition, processor) {
+    var base = definition.__staticdir__ || '.';
+    var resources = definition[ext];
     var generic = resources.__all__;
-    var base = resources.__base__ || '.';
     for (var key in resources) {
-        if (key !== '__all__' && key !== '__base__') {
+        if (!/^\_\_/.test(key)) {
             var files = resources[key];
             if (generic instanceof Array) {
                 files = generic.concat(files);
@@ -110,8 +111,8 @@ function processResources(ext, resources, processor) {
 
 
 function main(resources) {
-    processResources('css', resources.css, groupCssFiles);
-    processResources('js', resources.js, groupJsFiles);
+    processResources('css', resources, groupCssFiles);
+    processResources('js', resources, groupJsFiles);
 }
 
 

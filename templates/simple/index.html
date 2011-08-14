@@ -40,6 +40,7 @@
   <li <% if (obj.has_image) { %>class="haveImage"<% } %>>
     <% if (obj.sender_website) { %><a href="<%= obj.formatted_website %>"><% } %>
       <img
+         width="32" height="32"
          src="<%= obj.sender_avatar %>"
          alt="<%= obj.formatted_username %>"
          class="avatar">
@@ -48,6 +49,7 @@
       <% if (obj.has_image) { %>
       <li class="img">
         <img
+           width="80" height="60"
            alt="Pic taken by <%= obj.sender_name %>"
            class="rimg" src="<%= obj.thumb_url %>">
       </li>
@@ -67,6 +69,7 @@
   <li {% if msg.has_image %}class="haveImage"{% endif %}>
     {% if msg.sender_website %}<a href="{{ msg.formatted_website }}">{% endif %}
       <img
+         width="32" height="32"
          src="{{ msg.sender_avatar }}"
          alt="{{ msg.formatted_username }}"
          class="avatar">
@@ -75,8 +78,9 @@
       {% if msg.has_image %}
       <li class="img">
         <img
+           width="80" height="60"
            alt="Pic taken by {{ msg.sender_name }}"
-           class="rimg" src="{{ url_for('image', iid=msg.id, size='80x80') }}">
+           class="rimg" src="{{ url_for('image', iid=msg.id, size='80x60') }}">
       </li>
       {% endif %}
       <li class="name">
@@ -94,6 +98,7 @@
   <li>
     <a class="group" href="<%= obj.image_url %>">
       <img
+         width="120" height="90"
          alt="Pic taken by <%= obj.sender_name %>"
          src="<%= obj.thumb2_url %>">
     </a>
@@ -106,6 +111,7 @@
     <li>
       <a class="group" href="{{ url_for('image', iid=msg.id, size='800x600') }}">
         <img
+           width="120" height="90"
            alt="Pic taken by {{ msg.sender_name }}"
            src="{{ url_for('image', iid=msg.id, size='120x90') }}">
       </a>
@@ -153,7 +159,8 @@
       </select>
     </div>
 
-    <img id="gravatar" src="http://www.gravatar.com/avatar/?s=48&amp;d=mm"
+    <img width="32" height="32" id="gravatar"
+         src="http://www.gravatar.com/avatar/?s=48&amp;d=mm"
          alt="Your Avatar" title="Your Avatar">
     <ol>
       <li>

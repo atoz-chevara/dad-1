@@ -293,7 +293,7 @@ class Message(Document):
         base['image_url'] = self.has_image and \
             url_for('image', iid=self.id, size='800x600') or ''
         base['thumb_url'] = self.has_image and \
-            url_for('image', iid=self.id, size='80x80') or ''
+            url_for('image', iid=self.id, size='80x60') or ''
         base['thumb2_url'] = self.has_image and \
             url_for('image', iid=self.id, size='120x90') or ''
 

@@ -28,6 +28,7 @@
       <a name="{{ msg.id }}"></a>
       {% if msg.sender_website %}<a href="{{ msg.sender_website }}">{% endif %}
         <img
+           width="32" height="32"
            src="{{ msg.sender_avatar }}"
            alt="{{ msg.formatted_username }}"
            class="avatar">
@@ -43,6 +44,7 @@
       {% if msg.has_image %}
       <a class="group" href="{{ url_for('image', iid=msg.id, size='800x600') }}">
         <img
+           width="120" height="90"
            alt="Pic taken by {{ msg.sender_name }}"
            src="{{ url_for('image', iid=msg.id, size='120x90') }}">
       </a>
@@ -62,6 +64,7 @@
       {% if msg.geolocation %}
       <div class="map">
         <img
+           width="10" height="14"
            alt="Map pin"
            src="{{ url_for('static', filename='imgs/ico-map.png') }}">
       </div>

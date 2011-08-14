@@ -133,5 +133,11 @@ def message_json(mid):
     return dumps(obj.to_json())
 
 
-if __name__ == '__main__':
+def main():
+    """Shortcut to run dad application
+    """
     app.run(host=conf.HOST, port=conf.PORT, debug=conf.DEBUG)
+
+
+if __name__ == '__main__':
+    main()

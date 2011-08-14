@@ -21,10 +21,12 @@
 function formatTitle(title, currentArray, currentIndex, currentOpts) {
     var data = $(currentArray[currentIndex]).data('msg');
     var content = [];
-    content.push('<span id="fancybox-title-over">');
-    content.push('Image by <strong>' + data.sender_name + '</strong> ');
-    content.push('&mdash; ' + (currentIndex + 1) + ' / ' + currentArray.length);
-    content.push('</span>');
+    if (data) {
+        content.push('<span id="fancybox-title-over">');
+        content.push('Image by <strong>' + data.sender_name + '</strong> ');
+        content.push('&mdash; ' + (currentIndex + 1) + ' / ' + currentArray.length);
+        content.push('</span>');
+    }
     return content.join('');
 }
 
@@ -80,6 +82,8 @@ function setupSlideshow(numImgs) {
     });
 }
 
-$(window).hashchange(function () {
-    setupSlideshow();
-});
+if ($(window).hashchange !== undefined) {
+    $(window).hashchange(function () {
+        setupSlideshow();
+    });
+}

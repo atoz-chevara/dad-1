@@ -91,6 +91,7 @@ function groupJsFiles(base, files) {
  */
 function processResources(ext, definition, processor) {
     var base = definition.__staticdir__ || '.';
+    var output = definition.__outputdir__ || base;
     var resources = definition[ext];
     var generic = resources.__all__;
     for (var key in resources) {
@@ -102,7 +103,7 @@ function processResources(ext, definition, processor) {
             if (files.length > 0) {
                 var name = '_' + key + '.' + ext;
                 fs.writeFile(
-                    path.resolve(path.join(base, name)),
+                    path.resolve(path.join(output, name)),
                     processor(base, files));
             }
         }

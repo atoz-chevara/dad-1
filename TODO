@@ -15,8 +15,3 @@
  * Page to list all messages
    - Pagination
    - Show team and/or specific package choosen in msg form
-
- * Licensing: Document what is being linked
-   - The font file: OFL
-   - Jquery stuff: MIT/GPL
-   - Add a license file for the project: AGPLv3

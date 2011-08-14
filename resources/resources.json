@@ -1,6 +1,6 @@
 {
-    "__staticdir__": "../static",
-    "__outputdir__": "../public",
+    "__staticdir__": "dad/static",
+    "__outputdir__": "public",
 
     "css": {
         "__all__": ["css/style"],

@@ -296,4 +296,13 @@ class Message(Document):
             url_for('image', iid=self.id, size='80x80') or ''
         base['thumb2_url'] = self.has_image and \
             url_for('image', iid=self.id, size='120x90') or ''
+
+        # Adding useful properties
+        for i in [
+            'has_image',
+            'formatted_username',
+            'formatted_content',
+            'formatted_website',
+            ]:
+            base[i] = getattr(self, i)
         return base

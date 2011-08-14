@@ -22,7 +22,7 @@ from hashlib import md5
 from urllib import urlencode, urlopen
 from datetime import datetime
 from pyexiv2 import ImageMetadata
-import Image
+from PIL import Image, ImageOps
 from StringIO import StringIO
 from mongoengine import connect, Document, StringField, EmailField, \
     ListField, DictField, DateTimeField, GeoPointField, FileField, \
@@ -257,8 +257,8 @@ class Message(Document):
         """
         output = StringIO()
         img = Image.open(StringIO(self.image.read()))
-        img.thumbnail(size, Image.ANTIALIAS)
-        img.save(output, 'PNG')
+        imgfit = ImageOps.fit(img, size, Image.ANTIALIAS)
+        imgfit.save(output, 'PNG')
         self.thumbs['%dx%d' % size] = output.getvalue()
         return self.thumbs['%dx%d' % size]
 

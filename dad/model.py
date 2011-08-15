@@ -26,7 +26,7 @@ from PIL import Image, ImageOps
 from StringIO import StringIO
 from mongoengine import connect, Document, StringField, EmailField, \
     ListField, DictField, DateTimeField, GeoPointField, FileField, \
-    queryset_manager
+    ReferenceField, queryset_manager
 from flask import escape, url_for, Markup
 
 import conf
@@ -117,6 +117,18 @@ def process_image(url):
         result['geolocation'] = (longi, lat)
 
     return result
+
+
+class Thumb(Document):
+    """Object that caches thumbs created for images present in the
+    Message document.
+    """
+    image = FileField()
+    size = StringField()
+    message = ReferenceField('Message')
+    meta = {
+        'indexes': [ 'message' ],
+    }
 
 
 class Message(Document):
@@ -249,7 +261,9 @@ class Message(Document):
         """Returns a cached thumbnail (depending on the size). If it
         does not exist, _gen_thumb() is called to deliver the image.
         """
-        return self.thumbs.get('%dx%d' % size, self._gen_thumb(size))
+        tid = self.thumbs.get('%dx%d' % size)
+        return (tid and Thumb.objects.with_id(tid) or \
+                    self._gen_thumb(size)).image.read()
 
     def _gen_thumb(self, size):
         """Generates a thumbnail (and caches it) based on the internal
@@ -259,8 +273,18 @@ class Message(Document):
         img = Image.open(StringIO(self.image.read()))
         imgfit = ImageOps.fit(img, size, Image.ANTIALIAS)
         imgfit.save(output, 'PNG')
-        self.thumbs['%dx%d' % size] = output.getvalue()
-        return self.thumbs['%dx%d' % size]
+
+        # Creating thumb
+        thumb = Thumb()
+        thumb.image = output.getvalue()
+        thumb.size = '%dx%d' % size
+        thumb.message = self
+        thumb.save()
+
+        # Caching generated thumb
+        self.thumbs['%dx%d' % size] = thumb.id
+        self.save()
+        return thumb
 
     def to_json(self):
         """Returns a JSON representation of the object

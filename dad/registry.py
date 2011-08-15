@@ -85,3 +85,11 @@ def css(group):
     if conf.ENV == 'production':
         return Markup(prodresource('css', group))
     return Markup(''.join(devresources('css', group)))
+
+
+def base_static_url():
+    """Returns the base static url address
+    """
+    if conf.STATIC_URL is not None:
+        return conf.STATIC_URL % ''
+    return url_for('static', filename='')

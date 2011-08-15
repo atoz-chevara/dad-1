@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block javascripts %}
+<script>var STATIC_URL = "{{ registry.base_static_url() }}"</script>
 {{ registry.js('index') }}
 {% endblock %}
 

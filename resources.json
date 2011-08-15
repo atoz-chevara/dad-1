@@ -44,9 +44,10 @@
     },
 
     "__copy__": {
-        "imgs": "imgs/imgs/",
-        "js/fancybox/*.png": "imgs/fancybox",
-        "js/openlayers/img/*": "imgs/openlayers",
-        "js/openlayers/theme/*": "imgs/openlayers/theme"
+        "imgs/*": "imgs/",
+        "fonts/*": "fonts/",
+        "js/fancybox/*.png": ".",
+        "js/openlayers/img/*": "js/openlayers/img",
+        "js/openlayers/theme/*": "js/openlayers/theme"
     }
 }

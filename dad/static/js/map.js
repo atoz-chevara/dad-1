@@ -18,6 +18,9 @@
 */
 
 (function (ctx) {
+    /* Setting up static stuff config */
+    OpenLayers.ImgPath = STATIC_URL + 'js/openlayers/img/';
+
     var initial_lon = -1800244.88985;
     var initial_lat = 1878516.4068;
     var initial_zoom = 2;
@@ -35,7 +38,8 @@
                     new OpenLayers.Control.Permalink('Permalink'),
                     new OpenLayers.Control.MousePosition()
                 ],
-                numZoomLevels: zoom_levels
+                numZoomLevels: zoom_levels,
+                theme: STATIC_URL + 'js/openlayers/theme/default/style.css'
             });
 
         // OSM layer

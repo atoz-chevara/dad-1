@@ -21,7 +21,8 @@ var fs = require('fs'),
     path = require('path'),
     sass = require('sass'),
     cleancss = require('clean-css'),
-    uglifyjs = require("uglify-js");
+    uglifyjs = require("uglify-js"),
+    exec = require('child_process').exec;
 
 
 /**
@@ -69,12 +70,13 @@ function groupJsFiles(base, files) {
     return uglifyjs.uglify.gen_code(ast);
 }
 
+
 /**
  * A generic function to call different resource processors
  */
 function processResources(ext, definition, processor) {
-    var base = definition.__staticdir__ || '.';
-    var output = definition.__outputdir__ || base;
+    var base = definition.__staticdir__;
+    var output = definition.__outputdir__;
     var resources = definition[ext];
     var generic = resources.__all__;
     for (var key in resources) {
@@ -94,9 +96,29 @@ function processResources(ext, definition, processor) {
 }
 
 
-function run(resources) {
-    processResources('css', resources, groupCssFiles);
-    processResources('js', resources, groupJsFiles);
+/**
+ * This function copies files/dirs defined in the keys of the
+ * `definition.__copy__' object to values defined under each key.
+ */
+function processCopies(definition) {
+    if (definition.__copy__ === undefined) {
+        /* There's nothing to do here, let's bail! */
+        return;
+    }
+
+    var from, to;
+    var base = definition.__staticdir__;
+    var output = definition.__outputdir__;
+    Object.getOwnPropertyNames(definition.__copy__).forEach(function (key) {
+        var from = path.join(base, key);
+        var to = path.join(output, definition.__copy__[key]);
+        exec("mkdir -p " + to, function (err, stdout, stderr) {
+            if (err) throw err;
+            exec("cp -fr " + from + " " + to, function (err) {
+                console.log("%s %s", from, to);
+            });
+        });
+    });
 }
 
 
@@ -123,15 +145,36 @@ function parseDefinitionFile(filePath, extraParams, next) {
                 obj.__outputdir__ = extraParams.outputdir;
             }
 
+            if (obj.__staticdir__ === undefined) {
+                obj.__staticdir__ = '.';
+            }
+
+            if (obj.__outputdir__ === undefined) {
+                obj.__outputdir__ = obj.__staticdir__;
+            }
+
             next(obj);
         }
     });
 }
 
 
-if (module == require.main) {
+/**
+ * Function called when the script is launched. Just parses the command
+ * line arg and calls the `parseDefinitionFile()' fuction.
+ */
+function main() {
     var argv = require('optimist')
         .default('f', 'resources.json')
         .argv;
-    parseDefinitionFile(argv.f, argv, run);
+
+    parseDefinitionFile(argv.f, argv, function (resources) {
+        processResources('css', resources, groupCssFiles);
+        processResources('js', resources, groupJsFiles);
+        processCopies(resources);
+    });
+}
+
+if (module == require.main) {
+    main();
 }

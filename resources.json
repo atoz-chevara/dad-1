@@ -41,5 +41,12 @@
             "js/fancybox/jquery.fancybox.js",
             "js/gallery.js"
         ]
+    },
+
+    "__copy__": {
+        "imgs": "imgs/imgs/",
+        "js/fancybox/*.png": "imgs/fancybox",
+        "js/openlayers/img/*": "imgs/openlayers",
+        "js/openlayers/theme/*": "imgs/openlayers/theme"
     }
 }

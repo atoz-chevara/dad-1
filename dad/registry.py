@@ -87,9 +87,15 @@ def css(group):
     return Markup(''.join(devresources('css', group)))
 
 
+def static_url(name):
+    """Returns the url address of a static resource
+    """
+    if conf.STATIC_URL is not None:
+        return conf.STATIC_URL % name
+    return url_for('static', filename=name)
+
+
 def base_static_url():
     """Returns the base static url address
     """
-    if conf.STATIC_URL is not None:
-        return conf.STATIC_URL % ''
-    return url_for('static', filename='')
+    return static_url('')

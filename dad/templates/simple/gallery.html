@@ -31,7 +31,7 @@
     <div class="map">
       <img
          alt="Map pin" width="10" height="14"
-         src="{{ url_for('static', filename='imgs/ico-map.png') }}">
+         src="{{ registry.static_url('imgs/ico-map.png') }}">
     </div>
     <% } %>
   </li>
@@ -78,7 +78,7 @@
     <div class="map">
       <img
          alt="Map pin"
-         src="{{ url_for('static', filename='imgs/ico-map.png') }}"
+         src="{{ registry.static_url('imgs/ico-map.png') }}"
          width="10" height="14">
     </div>
     {% endif %}

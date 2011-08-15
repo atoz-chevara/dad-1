@@ -1,16 +1,18 @@
- * Index page
-   - Debian lovers widget (show a random pic there)
+* High priority
+  - Cache thumbnails!!! (Lincoln -- in progress)
+  - Create a terms of use document, publish and link in footer (Lincoln)
+  - Add the CC by-sa logo in the footer (Lincoln)
+  - Paginate items being shown in the /messages view
+  - Save team choosen by the user in the message form
+  - Improve the text in the "About" page
 
- * General stuff
-   - Search?
+* Medium
+  - Limit the number of chars in the message form
+  - Create a link to report abuses
+  - Debian lovers widget (show a random pic there)
+  - Create a new template to render a full page map
+  - Link map pins in gallery and message listing to the map page
 
- * Message form
-   - Save the Team choosen by the user in the db
-
- * Gallery
-   - Show the number of pics available?
-   - Adding a link to the full message -- how to deal with pagination?
-
- * Page to list all messages
-   - Pagination
-   - Show team and/or specific package choosen in msg form
+* Next year stuff
+  - Search?
+  - Show the number of pics available?

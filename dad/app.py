@@ -14,6 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from math import ceil
+from time import mktime
 from flask import Flask, Response, render_template as render, request, abort
 from model import Message
 from mongoengine import ValidationError
@@ -80,9 +81,10 @@ def help():
 @app.route('/image/<iid>/<size>/')
 def image(iid, size):
     size = tuple(int(x) for x in size.split('x'))
-    return Response(
-        Message.objects.with_id(iid).thumb(size),
-        content_type='image/png')
+    msg = Message.objects.with_id(iid)
+    resp = Response(msg.thumb(size), content_type='image/png')
+    resp.last_modified = mktime(msg.date.timetuple())
+    return resp
 
 
 @app.route('/message', methods=('POST',))

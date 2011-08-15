@@ -46,7 +46,7 @@
     "__copy__": {
         "imgs/*": "imgs/",
         "fonts/*": "fonts/",
-        "js/fancybox/*.png": ".",
+        "js/fancybox/*.png": "css/",
         "js/openlayers/img/*": "js/openlayers/img",
         "js/openlayers/theme/*": "js/openlayers/theme"
     }

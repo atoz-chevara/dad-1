@@ -61,7 +61,7 @@ def prodresource(ext, name):
     `gallery.html' template, but in all templates that actually needs a
     gallery.
     """
-    name = '_%s.%s' % (name, ext)
+    name = '%s/_%s.%s' % (ext, name, ext)
     if conf.STATIC_URL is not None:
         url = conf.STATIC_URL % name
     else:

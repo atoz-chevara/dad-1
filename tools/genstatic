@@ -87,8 +87,14 @@ function processResources(ext, definition, processor) {
             }
             if (files.length > 0) {
                 var name = '_' + key + '.' + ext;
+                var dir = path.resolve(path.join(output, ext));
+                try {
+                    fs.mkdirSync(dir, 0755);
+                } catch (e) {
+                    if (e.code !== 'EEXIST') throw e;
+                }
                 fs.writeFile(
-                    path.resolve(path.join(output, name)),
+                    path.resolve(path.join(output, ext, name)),
                     processor(base, files));
             }
         }

@@ -14,7 +14,7 @@
 <div id="stream">
   <h2 class="title">Messages</h2>
 
-<ul id="slideshow">
+<ul id="messages">
   {% for msg in slideshow.collection %}
     <li>
       <a name="{{ msg.id }}"></a>
@@ -63,10 +63,8 @@
       {% endif %}
     </li>
     {% endfor %}
-</ul>
-</div>
+  </ul>
 
-<div id="stats">
   <ul id="nav">
     <li class="prev">
       {% if slideshow.previous %}
@@ -88,6 +86,9 @@
       {% endif %}
     </li>
   </ul>
+</div>
+
+<div id="stats">
   <h2 class="title">Stats til now</h2>
   <ul>
     <li>

@@ -36,6 +36,9 @@
     :padding 0
     :color #c70036
 
+#messages
+  :clear both
+
 #stats
   :float right
   :width 340px
@@ -56,15 +59,14 @@
       :margin 10px
 
 #nav
-  :width 160px
+  :width 480px
   :display block
-  :position absolute
-  :height 0
   li
     :width 60px
-    :height 74px
-    :float left
+    :height 55px
     :overflow hidden
+    :float left
+    :border-bottom 0 !important
     a
       :display block
       :opacity 0.5
@@ -72,14 +74,16 @@
       :background url(../imgs/arrows.png) no-repeat top right
     a:hover
       :opacity 0.9
+    em
+      :padding-top 20px
+      :display block
   li.current
     :text-align center
-    :width 160px
+    :width 100%
     :color #999
     :text-shadow 2px 2px 2px #555
     :font-family 'Leckerli One'
     :font-size 35px
-    :margin-top -40px
   li.prev
     :margin-left -75px
     a

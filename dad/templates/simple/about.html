@@ -1,15 +1,34 @@
 {% extends 'simple/layout.html' %}
 
 {% block extra_head %}
-{{ registry.css('about') }}
+{{ registry.css('help') }}
 {% endblock %}
 
 {% block content %}
 <h2 class="title">About this site</h2>
 
 <p>
-  The aim of the site was to allow the many people that use and enjoy
-  Debian in their lives, to thank those that make it happen.
+The main purpose of this website is to allow people to thank package
+maintainers and developers for making Debian possible. It was inspired
+by the <strong>"Debian Appreciation Day"</strong> created in 2010 by
+Margarita Manterola, Maximiliano
+Curia, <a href="http://valessiobrito.info">Valessio Brito</a> and
+Raphael Geissert.
+</p>
+
+<p>
+This version was written by <a href="http://comum.org">Lincoln de
+Sousa</a> e <a href="http://metaldot.alucinados.com">Marcelo Jorge
+Vieira</a> and has some novelties such as users' location and images
+sharing.  Besides bringing knowledge about how Debian users are spread
+around the world it will also feed a repository of free images that can
+be used for promoting Debian in the future.
+</p>
+
+<p>
+The source code is available
+at <strong><a href="http://git.comum.org/dad.git">
+http://git.comum.org/dad.git</a></strong>.
 </p>
 
 {% endblock content %}

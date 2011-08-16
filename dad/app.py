@@ -72,9 +72,15 @@ def messages():
             Message.objects.order_by('-date'),
             conf.MESSAGES_MAX_PERPAGE))
 
+
 @app.route('/about')
 def about():
     return render_template('simple/about.html')
+
+
+@app.route('/tou')
+def tou():
+    return render_template('simple/tou.html')
 
 
 @app.route('/help')

@@ -34,7 +34,7 @@ def render_template(name, **attrs):
     return render(name, **attrs)
 
 
-def paginate(collection, maxperpage=conf.GALLERY_MAX_PERPAGE):
+def paginate(collection, maxperpage=10):
     page = int(request.values.get('p', 1))-1
     maxperpage = int(request.values.get('max', maxperpage))
     count = float(collection.count())
@@ -60,13 +60,17 @@ def index():
 def gallery():
     return render_template(
         'simple/gallery.html',
-        slideshow=paginate(Message.slideshow))
+        slideshow=paginate(Message.slideshow, conf.GALLERY_MAX_PERPAGE))
 
 
 @app.route('/messages')
 def messages():
-    return render_template('simple/messages.html', Message=Message)
-
+    return render_template(
+        'simple/messages.html',
+        Message=Message,
+        slideshow=paginate(
+            Message.objects.order_by('-date'),
+            conf.MESSAGES_MAX_PERPAGE))
 
 @app.route('/about')
 def about():
@@ -104,7 +108,8 @@ def moderate():
         msg.delete()
     return render_template(
         'simple/moderate.html',
-        messages=paginate(Message.objects.order_by('-date')))
+        messages=paginate(Message.objects.order_by('-date'),
+                          conf.MESSAGES_MAX_PERPAGE))
 
 
 @app.route('/people.json')
@@ -114,14 +119,15 @@ def people_json():
 
 @app.route('/images.json')
 def images_json():
-    objs = paginate(Message.slideshow)
+    objs = paginate(Message.slideshow, conf.GALLERY_MAX_PERPAGE)
     objs['collection'] = [x.to_json() for x in objs['collection']]
     return dumps(objs)
 
 
 @app.route('/messages.json')
 def messages_json():
-    objs = paginate(Message.objects.order_by('-date'))
+    objs = paginate(Message.objects.order_by('-date'),
+                    conf.MESSAGES_MAX_PERPAGE)
     objs['collection'] = [x.to_json() for x in objs['collection']]
     return dumps(objs)
 

@@ -27,6 +27,7 @@ DEBUG = True
 
 # Application specific settings
 GALLERY_MAX_PERPAGE = 12
+MESSAGES_MAX_PERPAGE = 12
 
 # Development/Production configuration: possible values are for this var
 # are: 'development' or 'production'.

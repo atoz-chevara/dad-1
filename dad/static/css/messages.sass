@@ -54,3 +54,36 @@
     div
       :float left
       :margin 10px
+
+#nav
+  :width 160px
+  :display block
+  :position absolute
+  :height 0
+  li
+    :width 60px
+    :height 74px
+    :float left
+    :overflow hidden
+    a
+      :display block
+      :opacity 0.5
+      :padding-top 74px
+      :background url(../imgs/arrows.png) no-repeat top right
+    a:hover
+      :opacity 0.9
+  li.current
+    :text-align center
+    :width 160px
+    :color #999
+    :text-shadow 2px 2px 2px #555
+    :font-family 'Leckerli One'
+    :font-size 35px
+    :margin-top -40px
+  li.prev
+    :margin-left -75px
+    a
+      :background-position top left
+  li.next
+    :float right
+    :margin-right -75px

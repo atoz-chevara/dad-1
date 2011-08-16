@@ -13,8 +13,9 @@
 
 <div id="stream">
   <h2 class="title">Messages</h2>
-  <ul>
-    {% for msg in Message.objects.order_by('-date')[:20] %}
+
+<ul id="slideshow">
+  {% for msg in slideshow.collection %}
     <li>
       <a name="{{ msg.id }}"></a>
       {% if msg.sender_website %}<a href="{{ msg.sender_website }}">{% endif %}
@@ -62,10 +63,31 @@
       {% endif %}
     </li>
     {% endfor %}
-  </ul>
+</ul>
 </div>
 
 <div id="stats">
+  <ul id="nav">
+    <li class="prev">
+      {% if slideshow.previous %}
+      <a href="{{ url_for('messages') }}?p={{ slideshow.previous }}">
+        Previous page
+      </a>
+      {% endif %}
+    </li>
+    <li class="current">
+      {% if slideshow.previous or slideshow.next %}
+      <em>#{{ slideshow.current }}/{{ slideshow.pagecount }}</em>
+      {% endif %}
+    </li>
+    <li class="next">
+      {% if slideshow.next %}
+      <a href="{{ url_for('messages') }}?p={{ slideshow.next }}">
+        Next page
+      </a>
+      {% endif %}
+    </li>
+  </ul>
   <h2 class="title">Stats til now</h2>
   <ul>
     <li>

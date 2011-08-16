@@ -86,7 +86,7 @@
   <ul id="slideshow">
     {% for msg in Message.slideshow[:8] %}
     <li>
-      <a class="group" href="{{ url_for('image', iid=msg.id, size='800x600') }}">
+      <a class="group" href="{{ url_for('nfimage', iid=msg.id, size='800x600') }}">
         <img
            width="120" height="90"
            alt="Pic taken by {{ msg.sender_name }}"

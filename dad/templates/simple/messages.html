@@ -34,7 +34,7 @@
       <div class="msg">{{ msg.formatted_content }}</div>
 
       {% if msg.has_image %}
-      <a class="group" href="{{ url_for('image', iid=msg.id, size='800x600') }}">
+      <a class="group" href="{{ url_for('nfimage', iid=msg.id, size='800x600') }}">
         <img
            width="120" height="90"
            alt="Pic taken by {{ msg.sender_name }}"

@@ -50,7 +50,7 @@
       <li>
         <strong>{{ msg.id }}</strong>
         {% if msg.has_image %}
-        <a href="{{ url_for('image', iid=msg.id, size='800x600') }}">
+        <a href="{{ url_for('nfimage', iid=msg.id, size='800x600') }}">
           <img
              width="120" height="90"
              alt="Pic taken by {{ msg.sender_name }}"

@@ -51,6 +51,14 @@ def paginate(collection, maxperpage=10):
         }
 
 
+def img(iid, size, fit=True):
+    size = tuple(int(x) for x in size.split('x'))
+    msg = Message.objects.with_id(iid)
+    resp = Response(msg.thumb(size, fit), content_type='image/png')
+    resp.last_modified = mktime(msg.date.timetuple())
+    return resp
+
+
 @app.route('/')
 def index():
     return render_template('simple/index.html', Message=Message)
@@ -88,13 +96,14 @@ def help():
     return render_template('simple/help.html')
 
 
-@app.route('/image/<iid>/<size>/')
+@app.route('/image/<iid>/<size>')
 def image(iid, size):
-    size = tuple(int(x) for x in size.split('x'))
-    msg = Message.objects.with_id(iid)
-    resp = Response(msg.thumb(size), content_type='image/png')
-    resp.last_modified = mktime(msg.date.timetuple())
-    return resp
+    return img(iid, size)
+
+
+@app.route('/image/<iid>/<size>/nfit')
+def nfimage(iid, size):
+    return img(iid, size, False)
 
 
 @app.route('/message', methods=('POST',))

@@ -257,22 +257,24 @@ class Message(Document):
             website = website.replace(website, "http://%s" % website)
         return website
 
-    def thumb(self, size):
+    def thumb(self, size, fit=True):
         """Returns a cached thumbnail (depending on the size). If it
         does not exist, _gen_thumb() is called to deliver the image.
         """
         tid = self.thumbs.get('%dx%d' % size)
         return (tid and Thumb.objects.with_id(tid) or \
-                    self._gen_thumb(size)).image.read()
+                    self._gen_thumb(size, fit)).image.read()
 
-    def _gen_thumb(self, size):
+    def _gen_thumb(self, size, fit=True):
         """Generates a thumbnail (and caches it) based on the internal
         `image' attribute.
         """
         output = StringIO()
         img = Image.open(StringIO(self.image.read()))
-        imgfit = ImageOps.fit(img, size, Image.ANTIALIAS)
-        imgfit.save(output, 'PNG')
+        if fit: # Means that we'll have to respect the size
+            img = ImageOps.fit(img, size, Image.ANTIALIAS)
+        img.thumbnail(size, Image.ANTIALIAS)
+        img.save(output, 'PNG')
 
         # Creating thumb
         thumb = Thumb()
@@ -315,7 +317,7 @@ class Message(Document):
 
         # Adding image info
         base['image_url'] = self.has_image and \
-            url_for('image', iid=self.id, size='800x600') or ''
+            url_for('nfimage', iid=self.id, size='800x600') or ''
         base['thumb_url'] = self.has_image and \
             url_for('image', iid=self.id, size='80x60') or ''
         base['thumb2_url'] = self.has_image and \

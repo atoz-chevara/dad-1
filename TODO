@@ -2,15 +2,15 @@
   - Create a terms of use document, publish and link in footer (Lincoln)
   - Add the CC by-sa logo in the footer (Lincoln)
   - Paginate items being shown in the /messages view
-  - Save team choosen by the user in the message form
   - Improve the text in the "About" page
 
 * Medium
   - Limit the number of chars in the message form
   - Create a link to report abuses
-  - Debian lovers widget (show a random pic there)
   - Create a new template to render a full page map
   - Link map pins in gallery and message listing to the map page
+  - (Removed from UI) Save team choosen by the user in the message form
+  - (Removed from UI) Debian lovers widget (show a random pic there)
 
 * Next year stuff
   - Search?

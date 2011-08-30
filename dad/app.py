@@ -61,7 +61,7 @@ def img(iid, size, fit=True):
 
 @app.route('/')
 def index():
-    return render_template('simple/index.html', Message=Message)
+    return render_template('simple/index.html', Message=Message, conf=conf)
 
 
 @app.route('/gallery')
@@ -108,6 +108,8 @@ def nfimage(iid, size):
 
 @app.route('/message', methods=('POST',))
 def message():
+    if conf.MESSAGES_BLOCKED:
+        abort(410)
     msg = Message.from_request(request)
     try:
         msg.save()

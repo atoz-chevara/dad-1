@@ -97,6 +97,7 @@
   </ul>
 </div>
 
+{% if not conf.MESSAGES_BLOCKED %}
 <form id="thanks" method="post" action="{{ url_for('message') }}">
   <input type="hidden" id="latitude" name="latitude" value="">
   <input type="hidden" id="longitude" name="longitude" value="">
@@ -156,6 +157,32 @@
 
   <button class="awesome">Send your message »</button>
 </form>
+{% else %}
+
+<div id="awesome">
+  <h3>Awesome</h3>
+
+  <p>
+    We are proud to see that so many people around the globe loves Debian
+    as much as we do. More than two thousand thank messages, one hundred
+    awesome pictures and a lot (more than 50k unique visits since 16th
+    Ago) people accessing it.
+  </p>
+
+  <p>
+    Unfortunately, we have closed the thank form now, but stay tuned in
+    the other Debian comunication channels, it will be a pleasure to talk
+    with you :)
+  </p>
+
+  <p>
+    Follow <a href="http://identi.ca/debian">@debian</a>
+    and <a href="http://identi.ca/debianart">@debianart</a> at
+    <a href="http://identi.ca">identi.ca</a>
+  </p>
+</div>
+
+{% endif %}
 
 <ul id="sidebar">
   <li class="tweets">

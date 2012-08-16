@@ -112,7 +112,7 @@
 <div class="stream">
 
   <h2>Messages</h2>
-  <ul>
+  <ul id="stream">
     {% for msg in Message.objects[:5].order_by('-date') %}
     <li {% if msg.has_image %}class="haveImage"{% endif %}>
       {% if msg.sender_website %}<a href="{{ msg.formatted_website }}">{% endif %}

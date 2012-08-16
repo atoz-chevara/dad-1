@@ -91,19 +91,13 @@
         </p>
 
         <p class="helpText">
-          Feel free to include anecdotes or usecases that make you
-          like Debian.
+          Feel free to include anecdotes or usecases that make you like
+          Debian. Don't forget to read the <a href="{{ url_for('tou') }}">
+          Terms Of Use</a> :)
         </p>
       </li>
       <li>
-        <div class="filewrapper">
-          <input type="file" id="image" name="image">
-          <span class="button">Choose a picture</span>
-        </div>
-        <p class="helpText">
-          Don't forget to read the <a href="{{ url_for('tou') }}">Terms
-            Of Use</a> :)
-        </p>
+        <input type="file" id="image" name="image">
       </li>
       <li>
         <button class="awesome">Send your message »</button>
@@ -146,9 +140,11 @@
   </ul>
 </div>
 
+<br class="split">
+
 <div id="slideshow">
   <ul>
-    {% for msg in Message.slideshow[:8] %}
+    {% for msg in Message.slideshow[:10] %}
     <li>
       <a class="group" href="{{ url_for('nfimage', iid=msg.id, size='800x600') }}">
         <img

@@ -74,7 +74,7 @@ def find_tags(content):
     return TAG_REGEXP.findall(content)
 
 
-PKG_REGEXP = re.compile('\:([\w\+\-.]*\w)')
+PKG_REGEXP = re.compile('\:([\w\+\-.]+\w)')
 
 def find_packages(content):
     """Finds words prefixed with a hashtag `#' symbol

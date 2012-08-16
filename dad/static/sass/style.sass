@@ -11,11 +11,11 @@
 
 body
   :font normal 10pt sans-serif
-  :background url(../imgs/bg1.png) repeat-x 0 90px
+  :background url(../imgs/bg1.png) repeat-x 0 90px, url(../imgs/bg3.png) repeat
 
 h2.title
   :color #333
-  :margin 40px 0
+  :margin 0 0 40px 0
   :font-family 'Leckerli One'
   :font-size 30px
   :text-shadow 3px 3px 3px #999
@@ -73,14 +73,18 @@ header
       :text-decoration underline
 
 #content
-  :padding-bottom 50px
+  :margin 30px 0
+  :padding 30px 30px 50px 30px
+  :background #fcfcfc
+  :border-radius 5px
 
 footer
   :clear both
   :min-height 80px
-  :padding 30px 0
-  :background gray
-  :margin-top 60px
+  :padding 20px 0 30px
+  :margin-top 50px
+  :border-top solid 1px #999
+  :background #fff
   h3
     :color #333
     :margin-bottom 15px
@@ -98,7 +102,6 @@ footer
     :float left
     :width 200px
   .column2
-    :color #ddd
     :float left
     p
       :margin 10px
@@ -112,4 +115,3 @@ footer
   .menu a
     :display block
     :margin 5px 0
-    :color #ddd

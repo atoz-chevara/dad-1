@@ -22,22 +22,35 @@ h3
   :overflow hidden
   :margin-bottom 10px
   :clear both
-  :box-shadow 0 0 20px #c70036
-  :height 90px
+  :background url(../imgs/bg2.png) repeat
+  :padding 26px 0 0 26px
+  :border-radius 5px
   li
+    :display block
     :float left
-    :background #000
-    :height 90px
+    :margin-bottom 26px
   img
-    :width 120px
+    :border-radius 5px
+    :box-shadow 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 7px 0 rgba(0, 0, 0, 0.8) inset
+    :padding 7px
+    :margin-right 20px
+  .see-all
+    :float right
+    :clear none
+    :bottom 10px
+    :right 10px
 
-#stream
+.stream h2
+  :padding-bottom 10px
+
+.stream > ul
   :color #333
-  :width 480px
+  :width 400px
   :float left
-  :margin 35px 0
   :height 350px
   :overflow hidden
+
+.stream > ul
   ul
     :margin 0 0 0 40px
   >li
@@ -70,7 +83,7 @@ h3
 #map
   :width 440px
   :height 340px
-  :float right
+  :float left
   :margin-top 40px !important
   :background black
   :border solid 1px #999
@@ -105,45 +118,76 @@ form#thanks #thankTarget
   :float right
 
 form#thanks
-  :width 600px
-  :float left
-  :margin 20px 0
+  :width 440px
+  :float right
+  :background #d7d7d7
+  :border-radius 5px 5px 0 0
   h3.first
     :margin-top 0
+    :background #7c9c1d
+    /* #7c9c1d
+    :border-radius 5px 5px 0 0
+    :padding 10px
+    :color black
+    :text-shadow 0 1px 0 #add133
+    :font bold 20px Helvetica,Arial
   fieldset
     :border 0
-    :margin 10px 0 0 20px
+    :margin 20px
   li
     :margin 6px 0 0 58px
   label
     :display none
     :width 100px
     :float left
-  input[type=text]
-    :width 300px
   img
     :display block
     :width 48px
     :height 48px
-    :margin 9px 8px 8px 0
+    :margin 0px 8px 8px 0
     :float left
     :border solid 1px #999
     :border-radius 3px
-  textarea
+  textarea,input[type=text]
+    :border-radius 3px
+    :margin-bottom 4px
+    :padding 3px 6px
+    :box-shadow 0 1px 0 #fff
+    :box-sizing border-box
+    :border solid 1px #ababab
+    :width 48%
+    :height 25px
+  input[name=name]
     :width 100%
+  input[name=url]
+    :float right
+  textarea
     :height 70px
     :display block
-  textarea,input[type=text]
-    :padding 3px
-    :border solid 1px #fff
-    :color #444
-    :background #f7f7f7
-    :border-radius 3px
-    :box-shadow inner 0 0 5px #888
+    :width 100%
   button
-    :margin 20px 0
+    :margin-top 20px
     :font-size 14px
     :padding 8px 24px 9px
+  input[name=image]
+    :position absolute
+
+
+.filewrapper
+  :cursor pointer
+  :display inline-block
+  :overflow hidden
+  :position relative
+  .button
+    :background gray
+    :padding 10px
+  input
+    :opacity 0
+    :height 100%
+    :position absolute
+    :right 0
+    :top 0
+    :font-size 100px
 
 #sidebar
   :width 250px

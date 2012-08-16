@@ -10,8 +10,6 @@
 {% endblock %}
 
 {% block content %}
-<div id="map"></div>
-
 <script type="text/html" id="streamItemTmpl">
   <% console.debug(obj); %>
   <li <% if (obj.has_image) { %>class="haveImage"<% } %>>
@@ -41,36 +39,6 @@
   </li>
 </script>
 
-<ul id="stream">
-  {% for msg in Message.objects[:5].order_by('-date') %}
-  <li {% if msg.has_image %}class="haveImage"{% endif %}>
-    {% if msg.sender_website %}<a href="{{ msg.formatted_website }}">{% endif %}
-      <img
-         width="32" height="32"
-         src="{{ msg.sender_avatar }}"
-         alt="{{ msg.formatted_username }}"
-         class="avatar">
-      {% if msg.sender_website %}</a>{% endif %}
-    <ul>
-      {% if msg.has_image %}
-      <li class="img">
-        <img
-           width="80" height="60"
-           alt="Pic taken by {{ msg.sender_name }}"
-           class="rimg" src="{{ url_for('image', iid=msg.id, size='80x60') }}">
-      </li>
-      {% endif %}
-      <li class="name">
-        {% if msg.sender_website %}<a href="{{ msg.formatted_website }}">{% endif %}
-          {{ msg.formatted_username }}
-          {% if msg.sender_website %}</a>{% endif %}
-      </li>
-      <li class="msg">{{ msg.formatted_content }}</li>
-    </ul>
-  </li>
-  {% endfor %}
-</ul>
-
 <script type="text/html" id="galleryItemTmpl">
   <li>
     <a class="group" href="<%= obj.image_url %>">
@@ -82,26 +50,14 @@
   </li>
 </script>
 
-<div class="w960">
-  <ul id="slideshow">
-    {% for msg in Message.slideshow[:8] %}
-    <li>
-      <a class="group" href="{{ url_for('nfimage', iid=msg.id, size='800x600') }}">
-        <img
-           width="120" height="90"
-           alt="Pic taken by {{ msg.sender_name }}"
-           src="{{ url_for('image', iid=msg.id, size='120x90') }}">
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
-
-{% if not conf.MESSAGES_BLOCKED %}
-<form id="thanks" method="post" action="{{ url_for('message') }}">
+<form
+   id="thanks" method="post" action="{{ url_for('message') }}"
+   enctype="multipart/form-data">
   <input type="hidden" id="latitude" name="latitude" value="">
   <input type="hidden" id="longitude" name="longitude" value="">
+
   <h3 class="first">Your Message</h3>
+
   <div class="errMsg">
     Sorry, there was an error while processing your message: <pre></pre>
   </div>
@@ -111,52 +67,106 @@
   </div>
 
   <fieldset>
-    <p class="helpText">
-      If you want to send a direct thank you for a package
-      maintainer, just type the package name prefixed by a colon
-      (:) symbol, like this <strong>:freecraft</strong>.
-    </p>
-
-    <p class="helpText">
-      Feel free to include anecdotes or usecases that make you
-      like Debian.
-    </p>
-  </fieldset>
-
-  <fieldset>
-    <label for="message">Message</label>
-    <textarea id="message" name="message"></textarea>
     <img width="32" height="32" id="gravatar"
          src="http://www.gravatar.com/avatar/?s=48&amp;d=mm"
          alt="Your Avatar" title="Your Avatar">
     <ol>
       <li>
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" placeholder="Email"></li>
-      <li>
         <label for="name">Name (required)</label>
         <input type="text" id="name" name="name" placeholder="Name (Required)"></li>
       <li>
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" placeholder="Email">
         <label for="url">Website</label>
         <input type="text" id="url" name="url" placeholder="Website"></li>
       <li>
-        <label for="avatar">Avatar url</label>
-        <input type="text" id="avatar" name="avatar" placeholder="URL of an avatar image"></li>
+        <label for="message">Message</label>
+        <textarea
+           id="message" name="message"
+           placeholder="Your message"></textarea>
+        <p class="helpText">
+          If you want to thank specific a package maintainer, type the
+          package name prefixed by a colon, like this
+          <strong>:freecraft</strong>.
+        </p>
+
+        <p class="helpText">
+          Feel free to include anecdotes or usecases that make you
+          like Debian.
+        </p>
+      </li>
+      <li>
+        <div class="filewrapper">
+          <input type="file" id="image" name="image">
+          <span class="button">Choose a picture</span>
+        </div>
+        <p class="helpText">
+          Don't forget to read the <a href="{{ url_for('tou') }}">Terms
+            Of Use</a> :)
+        </p>
+      </li>
+      <li>
+        <button class="awesome">Send your message »</button>
+      </li>
     </ol>
   </fieldset>
-
-  <h3>Share a picture of your party with other Debian lovers</h3>
-  <fieldset>
-    <input type="text" id="image" name="image" placeholder="Image URL">
-    <p class="helpText">
-      Please, fill with a direct link to an image, not to an
-      HTML page :) And don't forget to read the <a
-      href="{{ url_for('tou') }}">Terms Of Use</a>.
-    </p>
-  </fieldset>
-
-  <button class="awesome">Send your message »</button>
 </form>
+
+<div class="stream">
+
+  <h2>Messages</h2>
+  <ul>
+    {% for msg in Message.objects[:5].order_by('-date') %}
+    <li {% if msg.has_image %}class="haveImage"{% endif %}>
+      {% if msg.sender_website %}<a href="{{ msg.formatted_website }}">{% endif %}
+        <img
+           width="32" height="32"
+           src="{{ msg.sender_avatar }}"
+           alt="{{ msg.formatted_username }}"
+           class="avatar">
+        {% if msg.sender_website %}</a>{% endif %}
+      <ul>
+        {% if msg.has_image %}
+        <li class="img">
+          <img
+             width="80" height="60"
+             alt="Pic taken by {{ msg.sender_name }}"
+             class="rimg" src="{{ url_for('image', iid=msg.id, size='80x60') }}">
+        </li>
+        {% endif %}
+        <li class="name">
+          {% if msg.sender_website %}<a href="{{ msg.formatted_website }}">{% endif %}
+            {{ msg.formatted_username }}
+            {% if msg.sender_website %}</a>{% endif %}
+        </li>
+        <li class="msg">{{ msg.formatted_content }}</li>
+      </ul>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div id="slideshow">
+  <ul>
+    {% for msg in Message.slideshow[:8] %}
+    <li>
+      <a class="group" href="{{ url_for('nfimage', iid=msg.id, size='800x600') }}">
+        <img
+           width="140" height="110"
+           alt="Pic taken by {{ msg.sender_name }}"
+           src="{{ url_for('image', iid=msg.id, size='140x110') }}">
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="see-all">
+    <a href="#">See all images</a>
+  </div>
+</div>
+
+{% if not conf.MESSAGES_BLOCKED %}
+<div id="map"></div>
 {% else %}
 
 <div id="awesome">

@@ -19,7 +19,7 @@ mongodb
 
 import re
 from hashlib import md5
-from urllib import urlencode, urlopen
+from urllib import urlencode
 from datetime import datetime
 from PIL import Image, ImageOps
 from StringIO import StringIO
@@ -82,25 +82,20 @@ def find_packages(content):
     return PKG_REGEXP.findall(content)
 
 
-def process_image(url):
+def process_image(img):
     """Tries to get an image from a given url and extract its
     geolocation metadata.
     """
     result = {'image': None, 'geolocation': None }
-    if not url:
+    if not img:
         return result
 
-    # First, let's try to get the image
-    flike = urlopen(url)
-    if flike.getcode() != 200:
-        # Not found
-        return result
+    # TODO: Test if it's really an image
+    # if not flike.headers.get('content-type', '').startswith('image/'):
+    #     # Not an image
+    #     return result
 
-    if not flike.headers.get('content-type', '').startswith('image/'):
-        # Not an image
-        return result
-
-    result['image'] = flike.read()
+    result['image'] = img.read()
     metadata = _read_image_metadata(result['image'])
 
     # Geolocation stuff
@@ -198,7 +193,7 @@ class Message(Document):
         message.packages = find_packages(vals['message'])
 
         # Filling out image attribute
-        image_data = process_image(val('image'))
+        image_data = process_image(request.files.get('image'))
         message.image = image_data['image']
         message.image_geolocation = image_data['geolocation']
 

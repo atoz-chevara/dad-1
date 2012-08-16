@@ -28,6 +28,7 @@
             "js/fancybox/jquery.fancybox.js",
             "js/jquery.livetwitter.js",
             "js/jquery.md5.js",
+            "js/jquery.form.min.js",
             "js/map.js",
             "js/template.js",
             "js/jquery.hashchange.js",

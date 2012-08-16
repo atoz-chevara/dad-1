@@ -42,47 +42,30 @@
     /* URL for the default avatar in message form. */
     var defaultGravatar = 'http://www.gravatar.com/avatar/?s=48&d=mm';
 
-    $('form#thanks').submit(function(evt) {
-        evt.preventDefault();
-        var form = $(this);
-        var data = {};
-
-        $(this.elements).each(function (key, val) {
-            var $field = $(val);
-            var name = $field.attr('name');
-            if (name !== undefined) {
-                data[name] = $field.val();
-            }
-        });
-        var params = {
-            type: 'post',
-            url: form.attr('action'),
-            dataType: 'json',
-            data: data,
-            success: function(data) {
-                if (data.status === 'error') {
-                    $('.successMsg').hide();
-                    $('.errMsg pre').html(data.message);
-                    $('.errMsg').show();
-                    return setTimeout(function() {
-                        return $('.errMsg').hide(400);
-                    }, 5000);
-                } else {
-                    $('.errMsg').hide();
-                    $('.successMsg').show();
-                    $('#gravatar').attr('src', defaultGravatar);
-                    setupSlideshow(8);
-                    updateStream();
-                    updateMap(mapInstance);
-                    form[0].reset();
-                    return setTimeout(function() {
-                        return $('.successMsg').hide(400);
-                    }, 5000);
-                }
-            }
-        };
-        $.ajax(params);
-        return false;
+    $('form#thanks').ajaxForm({
+        beforeSubmit: function (data) {
+        },
+        success: function (data) {
+            if (data.status === 'error') {
+                $('.successMsg').hide();
+                $('.errMsg pre').html(data.message);
+                $('.errMsg').show();
+                return setTimeout(function() {
+                    return $('.errMsg').hide(400);
+                }, 5000);
+            } else {
+                $('.errMsg').hide();
+                $('.successMsg').show();
+                $('#gravatar').attr('src', defaultGravatar);
+                setupSlideshow(8);
+                updateStream();
+                // updateMap(mapInstance);
+                $('form#thanks')[0].reset();
+                return setTimeout(function() {
+                    return $('.successMsg').hide(400);
+                }, 5000);
+             }
+        }
     });
 
     /* Setting up `identi.ca' box */

@@ -15,6 +15,7 @@ the `thank' software itself.
  * python-mongoengine
  * libjs-jquery
  * libjs-openlayers
+ * libjs-jquery-form
  * libjs-jquery-fancybox
  * ruby-compass
 

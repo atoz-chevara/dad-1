@@ -16,6 +16,7 @@ the `thank' software itself.
  * libjs-jquery
  * libjs-openlayers
  * libjs-jquery-fancybox
+ * ruby-compass
 
 ### NodeJS Modules (not-packaged)
 
@@ -57,13 +58,13 @@ We're not using css directly in this app. All styles are being defined
 in the `sass` language. So, before running the app, you have to compile
 the sass files, use the following:
 
-    $ scripts/compilecss
+    $ compass compile dad/static
 
 If you aim to help the project sending patches, maybe it would be good
 to start a watcher that will compile sass files when they change. To do
 it, use it:
 
-    $ scripts/compilecss -w
+    $ compass watch dad/static/
 
 ## Actually running the app
 

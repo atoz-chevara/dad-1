@@ -283,7 +283,7 @@ class Message(Document):
         if fit: # Means that we'll have to respect the size
             img = ImageOps.fit(img, size, Image.ANTIALIAS)
         img.thumbnail(size, Image.ANTIALIAS)
-        img.save(output, 'PNG')
+        img.save(output, 'JPEG', quality=85)
 
         # Creating thumb
         thumb = Thumb()

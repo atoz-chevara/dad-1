@@ -54,7 +54,7 @@ def paginate(collection, maxperpage=10):
 def img(iid, size, fit=True):
     size = tuple(int(x) for x in size.split('x'))
     msg = Message.objects.with_id(iid)
-    resp = Response(msg.thumb(size, fit), content_type='image/png')
+    resp = Response(msg.thumb(size, fit), content_type='image/jpg')
     resp.last_modified = mktime(msg.date.timetuple())
     return resp
 

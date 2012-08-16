@@ -21,7 +21,6 @@ import re
 from hashlib import md5
 from urllib import urlencode, urlopen
 from datetime import datetime
-from pyexiv2 import ImageMetadata
 from PIL import Image, ImageOps
 from StringIO import StringIO
 from mongoengine import connect, Document, StringField, EmailField, \
@@ -29,7 +28,14 @@ from mongoengine import connect, Document, StringField, EmailField, \
     ReferenceField, queryset_manager
 from flask import escape, url_for, Markup
 
+try:
+    from pyexiv2 import ImageMetadata
+    HAS_PYEXIV2 = True
+except ImportError:
+    HAS_PYEXIV2 = False
+
 import conf
+
 
 connect(conf.DATABASE_NAME)
 
@@ -39,6 +45,15 @@ PKG_URL_PATTERN = u'<a href="http://packages.debian.org/%(n)s">%(n)s</a>'
 TAG_URL_PATTERN = u'<a href="http://identi.ca/tag/%(n)s">#%(n)s</a>'
 
 AVATAR_SIZE = '32'
+
+
+def _read_image_metadata(img):
+    if HAS_PYEXIV2:
+        metadata = ImageMetadata.from_buffer(img)
+        metadata.read()
+        return metadata
+    else:
+        return {}
 
 
 def build_gravatar(email):
@@ -86,8 +101,7 @@ def process_image(url):
         return result
 
     result['image'] = flike.read()
-    metadata = ImageMetadata.from_buffer(result['image'])
-    metadata.read()
+    metadata = _read_image_metadata(result['image'])
 
     # Geolocation stuff
     get = lambda key:metadata.get(key) and metadata.get(key).value or ''

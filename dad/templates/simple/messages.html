@@ -18,7 +18,7 @@
   {% for msg in slideshow.collection %}
     <li>
       <a name="{{ msg.id }}"></a>
-      {% if msg.sender_website %}<a href="{{ msg.sender_website }}">{% endif %}
+      {% if msg.sender_website %}<a target="_blank" href="{{ msg.formatted_website }}">{% endif %}
         <img
            width="32" height="32"
            src="{{ msg.sender_avatar }}"
@@ -27,7 +27,7 @@
         {% if msg.sender_website %}</a>{% endif %}
       <div class="to">this thanks goes to <strong>Debian Community</strong></div>
       <div class="sender">
-        {% if msg.sender_website %}<a href="{{ msg.sender_website }}">{% endif %}
+        {% if msg.sender_website %}<a target="_blank" href="{{ msg.formatted_website }}">{% endif %}
           <strong>{{ msg.sender_name }}</strong>
           {% if msg.sender_website %}</a>{% endif %}
       </div>

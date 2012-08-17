@@ -262,8 +262,9 @@ class Message(Document):
         website = self.sender_website
         if not website:
             return website
-        if not website.startswith('http://'):
-            website = website.replace(website, "http://%s" % website)
+        if not website.startswith('http://') \
+                and not website.startswith('https://'):
+            website = 'http://{}'.format(website)
         return website
 
     def thumb(self, size, fit=True):

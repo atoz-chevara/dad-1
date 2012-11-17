@@ -57,15 +57,16 @@
              class="rimg" src="{{ url_for('image', iid=msg.id, size='120x90') }}">
         </a>
         {% endif %}
-        {{ msg.formatted_content }}
         <form class="remove" method="post"
               action="{{ url_for('moderate') }}?{{ request.query_string }}">
           <input type="hidden" name="msgid" value="{{ msg.id }}">
           <p><input type="submit" value="Remove FOREVER!"></p>
         </form>
+        {{ msg.formatted_content }}
       </li>
       {% endfor %}
     </ul>
 
   </body>
 </html>
+

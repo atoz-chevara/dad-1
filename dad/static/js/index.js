@@ -116,7 +116,7 @@
 
     /* Supporting browsers that don't have the `placeholder' stuff */
     var input = document.createElement('input');
-    if (!'placeholder' in input) {
+    if (!('placeholder' in input)) {
         $('form#thanks label').css('display', 'block');
     }
 }).call(this);

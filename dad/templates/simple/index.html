@@ -6,7 +6,11 @@
 
 {% block javascripts %}
 <script>var STATIC_URL = "{{ registry.base_static_url() }}"</script>
+{% if not conf.MESSAGES_BLOCKED %}
 {{ registry.js('index') }}
+{% else %}
+<script>initFancyBox();</script>
+{% endif %}
 {% endblock %}
 
 {% block content %}

@@ -50,6 +50,7 @@
   </li>
 </script>
 
+{% if not conf.MESSAGES_BLOCKED %}
 <form
    id="thanks" method="post" action="{{ url_for('message') }}"
    enctype="multipart/form-data">
@@ -145,6 +146,24 @@
     {% endfor %}
   </ul>
 </div>
+{% else %}
+<div class="thanks">
+    <h2>Thank you</h2>
+
+    <p>
+        For the amazing <a href="{{ url_for('gallery') }}">pictures</a>
+        and <a href="{{ url_for('messages') }}">messages</a> sent to
+        thank Debian developers.
+    </p>
+
+    <p>
+        We are proud to see that so many people around the globe loves
+        Debian as much as we do and we look forward to see you again
+        next year, using and helping the Debian Project to become better
+        and better :)
+    </p>
+</div>
+{% endif %}
 
 <br class="split">
 
@@ -169,17 +188,16 @@
 
 {% if not conf.MESSAGES_BLOCKED %}
 <div id="map"></div>
+
+<ul id="sidebar">
+  <li class="tweets">
+    <h3>#thxdebian on identi.ca</h3>
+	<div id="identica_search"></div>
+  </li>
+</ul>
 {% else %}
 
 <div id="awesome">
-  <h3>Awesome</h3>
-
-  <p>
-    We are proud to see that so many people around the globe loves Debian
-    as much as we do. More than two thousand thank messages, one hundred
-    awesome pictures and a lot (more than 50k unique visits since 16th
-    Ago) people accessing it.
-  </p>
 
   <p>
     Unfortunately, we have closed the thank form now, but stay tuned in
@@ -196,11 +214,5 @@
 
 {% endif %}
 
-<ul id="sidebar">
-  <li class="tweets">
-    <h3>#thxdebian on identi.ca</h3>
-	<div id="identica_search"></div>
-  </li>
-</ul>
-
 {% endblock %}
+
